@@ -180,13 +180,14 @@
         bind:selectedIds={brand.categories}
         label="Select categories"
         items={[
-          { id: "health-system", text: "Health system" },
+          { id: "outpatient", text: "Outpatient (clinic, office)" },
           { id: "hospital", text: "Hospital" },
-          { id: "clinic", text: "Clinic" },
-          { id: "pharmacy", text: "Pharmacy" },
+          { id: "health-system", text: "Health system" },
           { id: "lab", text: "Lab" },
-          { id: "insurance", text: "Insurance" },
-          { id: "data-network", text: "Data Network" },
+          { id: "pharmacy", text: "Pharmacy" },
+          { id: "insurer", text: "Insurer" },
+          { id: "network", text: "Data Network" },
+          { id: "aggregator", text: "Data Aggregator" },
         ]}
       />
     </FormGroup>

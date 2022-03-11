@@ -43,7 +43,7 @@ export function brandsToFHIR(
                 },
               ]
             : []),
-          ...(!brand?.portalInherit?.website && (brand?.portal?.website)
+          ...(!brand?.portalInherit?.website && brand?.portal?.website
             ? [
                 {
                   url: "https://argonaut.fhir.us/patient-access-url",
@@ -51,7 +51,7 @@ export function brandsToFHIR(
                 },
               ]
             : []),
-          ...((!brand?.portalInherit?.name && brand.portal?.name)
+          ...(!brand?.portalInherit?.name && brand.portal?.name
             ? [
                 {
                   url: "https://argonaut.fhir.us/patient-access-name",
@@ -59,7 +59,7 @@ export function brandsToFHIR(
                 },
               ]
             : []),
-          ...((!brand.portalInherit?.description && brand.portal?.description)
+          ...(!brand.portalInherit?.description && brand.portal?.description
             ? [
                 {
                   url: "https://argonaut.fhir.us/patient-access-description",
@@ -101,6 +101,14 @@ export function brandsToFHIR(
               ]
             : []),
         ],
+        type: (brand?.categories || []).map((code) => ({
+          coding: [
+            {
+              system: "https://argonaut.fhir.us",
+              code,
+            },
+          ],
+        })),
       },
     })),
   };
