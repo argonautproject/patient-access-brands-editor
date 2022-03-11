@@ -1,6 +1,6 @@
 export  interface Brand {
-    id: number,
-    parentId?: number,
+    id: string,
+    parentId?: string,
     name?: string;
     logo?: string;
     website?: string;
@@ -16,11 +16,15 @@ export  interface Brand {
       system: string;
       value: string;
     }[];
+    portalInherit?: {
+        name: boolean,
+        description: boolean,
+        website: boolean,
+    },
     portal?: {
       name?: string;
       description?: string;
       website?: string;
-      dev?: string;
     };
   }
  

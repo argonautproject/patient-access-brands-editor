@@ -1,9 +1,20 @@
 <script lang="ts">
-  import { Button,FileUploader,Form,FormGroup,MultiSelect,TextInput } from "carbon-components-svelte";
+  import {
+  Button,
+  FileUploader,
+  Form,
+  FormGroup,
+  MultiSelect,
+  TextInput
+  } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
-  import { createEventDispatcher,tick } from "svelte";
+  import { tick } from "svelte";
   import type { Brand } from "./types";
+  import {encode, decode} from 'uint8-to-base64';
+
+
   export let brand: Brand;
+  export let brands: Record<string, Brand>;
   let fileUploader;
   let aliasDom = [];
   let locationDom = [];
@@ -11,31 +22,48 @@
   let textInputs = [];
   let lastId = -1;
 
-  let isAffiliate;
+  let isAffiliate = false;
+  let parentBrand: Brand;
   $: {
-    if (brand && !brand.portal) {
-      brand.portal = {};
+    if (brand?.parentId) {
+      isAffiliate = true;
+      parentBrand = brands[brand.parentId];
     }
-    isAffiliate  = (brand?.parentId !== undefined)
+    if (brand && !brand?.portal) {
+      brand.portal = {};
+      console.log("Brand", brand, isAffiliate)
+      brand.portalInherit = {
+        name: isAffiliate,
+        website: isAffiliate,
+        description: isAffiliate
+      };
+    }
   }
 </script>
 
 {#if brand}
   <Form>
-   
-    <FormGroup legendText={`${isAffiliate ? "Affiliated" : "Primary"} Brand name`}>
+    <h5>{`${isAffiliate ? "Affiliated" : "Primary"} Brand Details`}</h5>
+    <FormGroup legendText="Brand name">
+      <div class="bx--form__helper-text">
+        The primary name associated with your brand.
+      </div>
       <TextInput
         autofocus
         bind:value={brand.name}
         invalid={brand.name == ""}
         placeholder="Associated Physicians of Madison"
-        helperText="The primary name associated with your brand."
       />
     </FormGroup>
-    <FormGroup legendText="Brand website">
+    <FormGroup legendText="Brand website (https only)">
+      <div class="bx--form__helper-text">
+        The primary website associated with your brand. Note: this is distinct
+        from your patient portal.
+      </div>
       <TextInput
+        bind:value={brand.website}
+        invalid={!brand?.website?.startsWith("https://")}
         placeholder="https://apmadison.com"
-        helperText="The primary website associated with your brand. Note: this is distinct from your patient portal."
       />
     </FormGroup>
     <FormGroup legendText="Brand aliases (optional)">
@@ -84,13 +112,13 @@
         on:change={async function onChange(e) {
           console.log(e.detail);
           const file = e.detail[0];
-          let b64 = btoa(
-            String.fromCharCode(...new Uint8Array(await file.arrayBuffer()))
-          );
+          const fileBytes = new Uint8Array(await file.arrayBuffer());
+          console.log(fileBytes)
+          const b64Encoded = encode(fileBytes);
           let extension = file.name.split(".")[1];
           let dataUrl = `data:image/${
             { svg: "svg+xml", png: "png" }[extension]
-          };base64,${b64}`;
+          };base64,${b64Encoded}`;
           brand.logo = dataUrl;
           console.log(dataUrl);
           fileUploader.clearFiles();
@@ -162,38 +190,68 @@
         ]}
       />
     </FormGroup>
-    <FormGroup legendText="Patient Portal">
-      <div class="bx--form__helper-text">
-        URL of patient portal where records are available
-      </div>
-      <TextInput
-        bind:value={brand.portal.website}
-        invalid={!brand?.portal?.website}
-        placeholder="https://www.chart.myunitypoint.org/"
-      />
 
+    <h5>{`Patient Portal Details`}</h5>
+    <FormGroup legendText="Portal URL">
+      <div class="bx--form__helper-text">
+        URL of patient portal where records are available (https only)
+      </div>
+      {#if isAffiliate}
+        <div>
+          <input bind:checked={brand.portalInherit.website} type="checkbox" /> Use
+          portal URL from Primary Brand ("{parentBrand?.portal?.website || ""}")
+        </div>
+      {/if}
+      {#if !isAffiliate || !brand.portalInherit.website}
+        <TextInput
+          bind:value={brand.portal.website}
+          invalid={!brand?.portal?.website?.startsWith("https://")}
+          placeholder="https://www.chart.myunitypoint.org/"
+        />
+      {/if}
+    </FormGroup>
+
+    <FormGroup legendText="Portal name">
       <div class="bx--form__helper-text">
         Name of the portal as known to patients
       </div>
-      <div>
-        <input type="checkbox" /> Use name from Primary Brand ("MyUnityPoint")
-      </div>
-      <TextInput
-        disabled
-        bind:value={brand.portal.name}
-        invalid={false && !brand?.portal?.name}
-        placeholder="MyUnityPoint"
-      />
 
+      {#if isAffiliate}
+        <div>
+          <input bind:checked={brand.portalInherit.name} type="checkbox" /> Use
+          name from Primary Brand ("{parentBrand?.portal?.name || ""}")
+        </div>
+      {/if}
+      {#if !isAffiliate || !brand.portalInherit.name}
+        <TextInput
+          bind:value={brand.portal.name}
+          invalid={false && !brand?.portal?.name}
+          placeholder="MyUnityPoint"
+        />
+      {/if}
+    </FormGroup>
+
+    <FormGroup legendText="Portal description">
       <div class="bx--form__helper-text">
-        Description of the portal to assist in selection. Describe the intended audience of the portal, if you offer more than one portal for different audiences.
+        Description of the portal to help patients connect to the right place.
+        Explain the intended audience of the portal, if you offer more than one
+        portal for different audiences.
       </div>
-      <TextInput
-        bind:value={brand.portal.description}
-        placeholder="Clinical records for all Associated Physicians patients"
-      />
-
-
+      {#if isAffiliate}
+        <div>
+          <input bind:checked={brand.portalInherit.description} type="checkbox" />
+          Use description from Primary Brand ("{parentBrand?.portal?.description
+            ? parentBrand.portal.description.slice(40) + "..."
+            : ""}")
+        </div>
+      {/if}
+      {#if !isAffiliate || !brand.portalInherit.description}
+        <TextInput
+          bind:value={brand.portal.description}
+          invalid={false && !brand?.portal?.description}
+          placeholder="Access your clinical records..."
+        />
+      {/if}
     </FormGroup>
   </Form>
 {/if}
@@ -201,5 +259,9 @@
 <style>
   :global(legend) {
     font-weight: bold !important;
+    margin-bottom: 0px !important;
+  }
+  :global(::placeholder) {
+    opacity: 40% !important;
   }
 </style>

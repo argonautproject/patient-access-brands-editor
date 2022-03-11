@@ -33,7 +33,10 @@
   },
   "type": "module",
   "dependencies": {
+    "@types/uuid": "^8.3.4",
     "addresser": "^1.1.19",
-    "carbon-icons-svelte": "^10.44.4"
+    "carbon-icons-svelte": "^10.44.4",
+    "uint8-to-base64": "^0.2.0",
+    "uuid": "^8.3.2"
   }
 }

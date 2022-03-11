@@ -15,6 +15,7 @@
   import type { Brand } from "./types";
   const dispatchEvent = createEventDispatcher();
   export let brand: Brand;
+  export let parentBrand: Brand | undefined;
 </script>
 
 {"" && JSON.stringify(brand)}
@@ -39,10 +40,10 @@
         <div style="margin-left: 1em; display: flex; align-items: self-end;">
 
         <p style="font-size: .8rem; margin-top: .5em;">
-         {brand?.portal?.name || "TODO: Add portal name, URL, and description"}
+         {(brand?.portalInherit?.name ? parentBrand?.portal?.name : brand?.portal?.name) || "TODO: Add portal name, URL, and description"}
         </p>
-          <button class="example" size="small" kind="primary">View data</button>
-          <button class="example" size="small" kind="primary">Connect</button>
+          <button class="example" kind="primary">View data</button>
+          <button class="example" kind="primary">Connect</button>
         </div>
     </Row>
   </Grid>
@@ -54,7 +55,7 @@
     style="cursor: pointer; position: absolute; top: 0%; right: 0%;"
   />
 </ClickableTile>
-{#if brand.id === 0}
+{#if !brand.parentId}
   <Button 
   on:click={() => {
       dispatchEvent("add-affiliated-brand", brand)
