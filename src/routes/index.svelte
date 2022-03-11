@@ -1,42 +1,60 @@
 <script lang="ts">
-  import "carbon-components-svelte/css/white.css";
-  import { Accordion, AccordionItem } from "carbon-components-svelte";
-  import { Theme, Button } from "carbon-components-svelte";
-  import { Grid, Row, Column } from "carbon-components-svelte";
-
   import BrandCard from "$lib/BrandCard.svelte";
+  import BrandEditor from "$lib/BrandEditor.svelte";
+  import { Column,Grid,Row } from "carbon-components-svelte";
+  import "carbon-components-svelte/css/white.css";
+  import { editing } from "../stores/stores";
   let x: string = "OK";
-  let cards = [1, 2, 3, 4];
+  let defaultBrand = {name: "TODO: Add a title", description: ""}
+  let cards = [
+    {...defaultBrand, id: 0},
+  ];
 </script>
 
-<Button>Primary button</Button>
-
-<h1 style={"color: var(--cds-active-danger); background: blue;"}>
-  Welcome to SvelteKit, {x}
-</h1>
 <Grid>
   <Row>
-    <Column lg={1} sm={1}>Sidebar</Column>
-    <Column lg={15} sm={4}>
-      <Row>
-        {#each cards as card}
-          <Column lg={8} sm={4}>
-            <BrandCard brand={{ name: "SMART Health Clinic" }} />
-          </Column>
-        {/each}
-      </Row>
+    <Column sm={4}>
+      <h1>SMART Patient Brand Editor</h1>
+    </Column>
+  </Row>
+  <Row>
+    <Column lg={8} sm={4}>
+      <Grid noGutter>
+        <Row>
+          {#each cards as card, i}
+            <Column class="tile-column" sm={3}>
+              <BrandCard brand={card} on:add-affiliated-brand={e =>{
+                  const childCard = {...defaultBrand, id: cards.length, parentId: i};
+                  cards = [...cards, childCard];
+                  $editing = {id: childCard.id};
+              } } />
+            </Column>
+          {/each}
+        </Row>
+      </Grid>
+    </Column>
+    <Column lg={8} sm={4}>
+        {#key $editing.id}
+      <BrandEditor bind:brand={cards[$editing.id]} />
+        {/key}
     </Column>
   </Row>
 </Grid>
 
-<Accordion>
-  <AccordionItem title="Section 1" open>Content 1</AccordionItem>
-  <AccordionItem title="Section 2">Content 2</AccordionItem>
-  <AccordionItem title="Section 3">Content 3</AccordionItem>
-</Accordion>
-
 <style>
+  h1 {
+    font-size: 2rem;
+  }
   :root {
     --cds-ui-04: slategray;
+  }
+
+  :global(.tile-column) {
+    margin-bottom: 0.5em;
+  }
+
+  textarea {
+    width: 100%;
+    height: calc(100% - 0.5em);
   }
 </style>

@@ -1,22 +1,29 @@
 <script lang="ts">
+  import {
+  Button,
+  ButtonSet,
+  Column,
+  Grid,
+  Row,
+  Tile,
+  ClickableTile
+  } from "carbon-components-svelte";
+  import Edit32 from "carbon-icons-svelte/lib/Edit32";
+  import ParentChild16 from "carbon-icons-svelte/lib/ParentChild16";
+  import { createEventDispatcher } from "svelte";
   import { editing } from "../stores/stores";
-  import { Tile, ClickableTile } from "carbon-components-svelte";
-  import Edit16 from "carbon-icons-svelte/lib/Edit16";
-
-  import { Grid, Row, Column } from "carbon-components-svelte";
-
-  export let brand: Brand;
-  import { ButtonSet, Button } from "carbon-components-svelte";
   import type { Brand } from "./types";
+  const dispatchEvent = createEventDispatcher();
+  export let brand: Brand;
 </script>
 
+{"" && JSON.stringify(brand)}
 <ClickableTile
   class="tile"
-    on:click={() => {
-      $editing = { id: brand.id };
-      console.log("Editing", brand.id);
-    }}
- 
+  on:click={() => {
+    $editing = { id: brand.id };
+    console.log("Editing", brand.id);
+  }}
   style={`opacity: ${
     $editing?.id !== null && $editing.id !== brand.id ? "50" : 100
   }%`}
@@ -25,26 +32,21 @@
     <img alt="logo" class="logo" src={brand.logo ?? "./smart-burst.svg"} />
     {brand.name}
     &nbsp;
-    <a href="https://smarthealthit.org">website</a>
   </h3>
 
   <Grid noGutter>
     <Row>
-      <Column sm={2}
-        >MyChildren's Portal offers access to pediatric patients with cancer
-        care records at Dana Farber.
+        <div style="margin-left: 1em; display: flex; align-items: self-end;">
 
-        <details>Patient access to clinical and financial data</details>
-      </Column>
-      <Column sm={2}>
-        <ButtonSet stacked>
-          <Button size="small" kind="primary">View data</Button>
-          <Button size="small" kind="primary">Connect</Button>
-        </ButtonSet>
-      </Column>
+        <p style="font-size: .8rem; margin-top: .5em;">
+         {brand?.portal?.name || "TODO: Add portal name, URL, and description"}
+        </p>
+          <button class="example" size="small" kind="primary">View data</button>
+          <button class="example" size="small" kind="primary">Connect</button>
+        </div>
     </Row>
   </Grid>
-  <Edit16
+  <Edit32
     on:click={() => {
       $editing = { id: brand.id };
       console.log("Editing", brand.id);
@@ -52,8 +54,24 @@
     style="cursor: pointer; position: absolute; top: 0%; right: 0%;"
   />
 </ClickableTile>
+{#if brand.id === 0}
+  <Button 
+  on:click={() => {
+      dispatchEvent("add-affiliated-brand", brand)
+  }}
+  small style="display: flex; align-items: centered" kind="tertiary">
+    <ParentChild16 /> Add affiliated brand
+  </Button>
+{/if}
 
 <style>
+  button.example {
+      font-size: .5rem;
+      white-space: nowrap;
+      border: 1px solid black;
+      margin-bottom: .2em;
+      margin-left: .2em;
+  }
   .name {
     display: flex;
     align-items: center;
