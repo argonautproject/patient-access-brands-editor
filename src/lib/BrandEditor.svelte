@@ -105,7 +105,7 @@
       <!-- svelte-ignore missing-declaration -->
       <FileUploader
         bind:this={fileUploader}
-        buttonLabel="Choose file"
+        buttonLabel="Choose logo file"
         labelDescription="Square PNG or SVG, 1024x1024 pixels with transparent background preferred"
         accept={[".png", ".svg"]}
         status="complete"

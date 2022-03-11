@@ -10,7 +10,7 @@ import { brandsToFHIR } from "$lib/interop";
   import { CopyButton } from "carbon-components-svelte";
 
   let x: string = "OK";
-  let defaultBrand: Brand = { id: uuid.v4(), name: "TODO: Add a title"};
+  let defaultBrand: Brand = { id: uuid.v4(), name: "TODO: Add a name"};
   let cards = {
     [defaultBrand.id]: {...defaultBrand},
   };
