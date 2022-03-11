@@ -1,5 +1,5 @@
 //import adapter from '@sveltejs/adapter-auto';
-import adapter from '@sveltejs/adapter-static';
+ import adapter from '@sveltejs/adapter-static';
 
 import preprocess from 'svelte-preprocess';
 
@@ -10,10 +10,10 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: adapter(),
-		prerender: {
-			default: true
-		}
+      adapter: adapter({fallback: "index.html"}),
+		paths: {
+			base:  "/patient-access-brands",
+		},
 	}
 };
 

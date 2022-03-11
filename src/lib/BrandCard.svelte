@@ -30,7 +30,7 @@
   }%`}
 >
   <h3 class="name">
-    <img alt="logo" class="logo" src={brand.logo ?? "./smart-burst.svg"} />
+    <img alt="logo" class="logo" src={brand.logo ?? ""} />
     {brand.name}
     &nbsp;
   </h3>

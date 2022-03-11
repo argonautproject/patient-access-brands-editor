@@ -10,7 +10,7 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import { tick } from "svelte";
   import type { Brand } from "./types";
-  import {encode, decode} from 'uint8-to-base64';
+  import {encode} from 'uint8-to-base64';
 
 
   export let brand: Brand;
