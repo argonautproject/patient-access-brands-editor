@@ -33,16 +33,15 @@ import { brandsToFHIR } from "$lib/interop";
 <Grid>
   <Row>
     <Column sm={4}>
-      <h1>SMART Patient Access: Brand Editor <CopyButton text={fhirExport} feedback="Copied Brand Bundle to clipboard" />
-
-
-      </h1>
+      <h1>SMART Patient Access: Brand Editor  (<a target="_blank" href="https://hackmd.io/@argonaut/patient-access-brands">?</a>)     </h1>
         </Column>
-
-
   </Row>
   <Row>
-    <Column lg={8} sm={4}>
+    <Column style="position: relative" lg={4} sm={4}>
+      <pre style="overflow-x: clip;">{fhirExport}</pre>
+      <CopyButton style="position: absolute; top: 0px; right: 0px;" text={fhirExport} feedback="Copied Brand Bundle to clipboard" />
+      </Column>
+    <Column lg={4} sm={4}>
       <Grid noGutter>
         <Row>
           {#each Object.entries(cards) as [id, card]}

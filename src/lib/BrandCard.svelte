@@ -37,7 +37,7 @@
 
   <Grid noGutter>
     <Row>
-        <div style="margin-left: 1em; display: flex; align-items: self-end;">
+        <div style="margin-left: 1em; margin-right: 1em; display: flex; align-items: self-end;">
 
         <p style="font-size: .8rem; margin-top: .5em;">
          {(brand?.portalInherit?.name ? parentBrand?.portal?.name : brand?.portal?.name) || "TODO: Add portal name, URL, and description"}
@@ -60,7 +60,7 @@
   on:click={() => {
       dispatchEvent("add-affiliated-brand", brand)
   }}
-  small style="display: flex; align-items: centered" kind="tertiary">
+  small style="display: flex; align-items: centered; padding-left: 1em; padding-right: 1em; width: 100%; min-height: 2rem;" kind="tertiary">
     <ParentChild16 /> Add affiliated brand
   </Button>
 {/if}
