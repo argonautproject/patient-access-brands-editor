@@ -33,7 +33,7 @@ import { brandsToFHIR } from "$lib/interop";
 <Grid>
   <Row>
     <Column sm={4}>
-      <h1>SMART Patient Brand Editor <CopyButton text={fhirExport} feedback="Copied Brand Bundle to clipboard" />
+      <h1>SMART Patient Access: Brand Editor <CopyButton text={fhirExport} feedback="Copied Brand Bundle to clipboard" />
 
 
       </h1>
