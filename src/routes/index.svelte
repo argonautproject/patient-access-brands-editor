@@ -16,6 +16,7 @@ import { brandsToFHIR } from "$lib/interop";
   };
 
 
+  $editing = { id: defaultBrand.id };
   let fhirExport = ""
   $: {
       fhirExport = JSON.stringify(brandsToFHIR(cards, "https://ehr.example.org"), null, 2)
