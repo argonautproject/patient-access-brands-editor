@@ -1,7 +1,7 @@
 <script lang="ts">
   import BrandCard from "$lib/BrandCard.svelte";
   import BrandEditor from "$lib/BrandEditor.svelte";
-import debounce from "$lib/debounce";
+  import debounce from "$lib/debounce";
   import { brandsToFHIR } from "$lib/interop";
   import { Column, CopyButton, Grid, Row } from "carbon-components-svelte";
   import "carbon-components-svelte/css/white.css";
@@ -18,11 +18,15 @@ import debounce from "$lib/debounce";
   $editing = { id: defaultBrand.id };
   let fhirExport = "";
 
- let debounceFhirInterval = debounce();
-  $: debounceFhirInterval(() => { fhirExport = JSON.stringify( brandsToFHIR(cards, "https://ehr.example.org"), null, 2); },
-      200
+  let debounceFhirInterval = debounce();
+  $: debounceFhirInterval(() => {
+    fhirExport = JSON.stringify(
+      brandsToFHIR(cards, "https://ehr.example.org"),
+      null,
+      2
     );
-  
+  }, 200);
+
   function addChildBrand(id: string) {
     return (_e) => {
       const childCard: Brand = { ...defaultBrand, id: uuid.v4(), parentId: id };
@@ -85,8 +89,7 @@ import debounce from "$lib/debounce";
 
 <style>
   h1 {
-    font-size: 2rem;
-    display: flex;
+    font-size: 1.5rem;
     gap: 0.2em;
     margin-bottom: 0.2em;
   }
