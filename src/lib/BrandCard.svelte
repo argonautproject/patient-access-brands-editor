@@ -61,7 +61,7 @@
       dispatchEvent("add-affiliated-brand", brand);
     }}
     small
-    style="display: flex; align-items: centered; padding-left: 1em; padding-right: 1em; width: 100%; min-height: 2rem; gap: 1em;"
+    style="display: flex; align-items: centered; padding-left: 1em; padding-right: 1em; width: 100%; max-width: unset; min-height: 2rem; gap: 1em;"
     kind="tertiary"
   >
     <ParentChild16 />
@@ -73,7 +73,7 @@
       dispatchEvent("remove-affiliated-brand", brand);
     }}
     small
-    style="display: flex; align-items: centered; padding-left: 1em; padding-right: 1em; width: 100%; min-height: 2rem; gap: 1em;"
+    style="display: flex; align-items: centered; padding-left: 1em; padding-right: 1em; width: 100%; max-width: unset; min-height: 2rem; gap: 1em;"
     kind="danger-tertiary"
   >
     <TrashCan16 />
