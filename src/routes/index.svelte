@@ -1,25 +1,27 @@
 <script lang="ts">
   import BrandCard from "$lib/BrandCard.svelte";
   import BrandEditor from "$lib/BrandEditor.svelte";
-  import { Column, Grid, Row } from "carbon-components-svelte";
+  import { brandsToFHIR } from "$lib/interop";
+  import { Column,CopyButton,Grid,Row } from "carbon-components-svelte";
   import "carbon-components-svelte/css/white.css";
-  import { editing } from "../stores/stores";
-  import type { Brand } from "../lib/types";
   import * as uuid from "uuid";
-import { brandsToFHIR } from "$lib/interop";
-  import { CopyButton } from "carbon-components-svelte";
+  import type { Brand } from "../lib/types";
+  import { editing } from "../stores/stores";
 
   let x: string = "OK";
-  let defaultBrand: Brand = { id: uuid.v4(), name: "TODO: Add a name"};
+  let defaultBrand: Brand = { id: uuid.v4(), name: "TODO: Add a name" };
   let cards = {
-    [defaultBrand.id]: {...defaultBrand},
+    [defaultBrand.id]: { ...defaultBrand },
   };
 
-
   $editing = { id: defaultBrand.id };
-  let fhirExport = ""
+  let fhirExport = "";
   $: {
-      fhirExport = JSON.stringify(brandsToFHIR(cards, "https://ehr.example.org"), null, 2)
+    fhirExport = JSON.stringify(
+      brandsToFHIR(cards, "https://ehr.example.org"),
+      null,
+      2
+    );
   }
   function addChildBrand(id: string) {
     return (_e) => {
@@ -28,28 +30,45 @@ import { brandsToFHIR } from "$lib/interop";
       $editing = { id: childCard.id };
     };
   }
+  function removeChildBrand(id: string) {
+    return (_e) => {
+      cards = Object.fromEntries(
+        Object.entries(cards).filter(([k, v]) => k !== id)
+      );
+    };
+  }
 </script>
 
 <Grid>
   <Row>
     <Column sm={4}>
-      <h1>SMART Patient Access: Brand Editor  (<a target="_blank" href="https://hackmd.io/@argonaut/patient-access-brands">?</a>)     </h1>
-        </Column>
+      <h1>
+        SMART Patient Access: Brand Editor (<a
+          target="_blank"
+          href="https://hackmd.io/@argonaut/patient-access-brands">?</a
+        >)
+      </h1>
+    </Column>
   </Row>
   <Row>
-    <Column style="position: relative" lg={4} sm={4}>
-      <pre style="overflow-x: clip;">{fhirExport}</pre>
-      <CopyButton style="position: absolute; top: 0px; right: 0px;" text={fhirExport} feedback="Copied Brand Bundle to clipboard" />
-      </Column>
-    <Column lg={4} sm={4}>
+    <Column style="position: relative;" lg={4} sm={4}>
+      <pre style="overflow-x: clip; margin-bottom: 1em;">{fhirExport}</pre>
+      <CopyButton
+        style="position: absolute; top: 0px; right: 1rem;"
+        text={fhirExport}
+        feedback="Copied Brand Bundle to clipboard"
+      />
+    </Column>
+    <Column lg={4} sm={4} style="margin-bottom: 1em;">
       <Grid noGutter>
         <Row>
           {#each Object.entries(cards) as [id, card]}
-            <Column class="tile-column" sm={3}>
+            <Column class="tile-column" sm={4}>
               <BrandCard
                 brand={card}
                 parentBrand={cards[card.parentId]}
                 on:add-affiliated-brand={addChildBrand(id)}
+                on:remove-affiliated-brand={removeChildBrand(id)}
               />
             </Column>
           {/each}
@@ -68,19 +87,14 @@ import { brandsToFHIR } from "$lib/interop";
   h1 {
     font-size: 2rem;
     display: flex;
-    gap: .2em;
-    margin-bottom: .2em;
+    gap: 0.2em;
+    margin-bottom: 0.2em;
   }
   :root {
     --cds-ui-04: slategray;
   }
 
   :global(.tile-column) {
-    margin-bottom: 0.5em;
-  }
-
-  textarea {
-    width: 100%;
-    height: calc(100% - 0.5em);
+    margin-bottom: 1rem;
   }
 </style>

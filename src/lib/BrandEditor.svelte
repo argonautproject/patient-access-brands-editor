@@ -9,9 +9,8 @@
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import { tick } from "svelte";
+  import { encode } from "uint8-to-base64";
   import type { Brand } from "./types";
-  import {encode} from 'uint8-to-base64';
-
 
   export let brand: Brand;
   export let brands: Record<string, Brand>;
@@ -19,8 +18,6 @@
   let aliasDom = [];
   let locationDom = [];
   let locationFlat = [];
-  let textInputs = [];
-  let lastId = -1;
 
   let isAffiliate = false;
   let parentBrand: Brand;
@@ -31,11 +28,11 @@
     }
     if (brand && !brand?.portal) {
       brand.portal = {};
-      console.log("Brand", brand, isAffiliate)
+      console.log("Brand", brand, isAffiliate);
       brand.portalInherit = {
         name: isAffiliate,
         website: isAffiliate,
-        description: isAffiliate
+        description: isAffiliate,
       };
     }
   }
@@ -113,7 +110,7 @@
           console.log(e.detail);
           const file = e.detail[0];
           const fileBytes = new Uint8Array(await file.arrayBuffer());
-          console.log(fileBytes)
+          console.log(fileBytes);
           const b64Encoded = encode(fileBytes);
           let extension = file.name.split(".")[1];
           let dataUrl = `data:image/${
@@ -199,8 +196,9 @@
       </div>
       {#if isAffiliate}
         <div>
-          <input bind:checked={brand.portalInherit.website} type="checkbox" /> Use
-          portal URL from Primary Brand ("{parentBrand?.portal?.website || ""}")
+          <input bind:checked={brand.portalInherit.website} type="checkbox" />
+          Use portal URL from Primary Brand ("{parentBrand?.portal?.website ||
+            ""}")
         </div>
       {/if}
       {#if !isAffiliate || !brand.portalInherit.website}
@@ -240,7 +238,10 @@
       </div>
       {#if isAffiliate}
         <div>
-          <input bind:checked={brand.portalInherit.description} type="checkbox" />
+          <input
+            bind:checked={brand.portalInherit.description}
+            type="checkbox"
+          />
           Use description from Primary Brand ("{parentBrand?.portal?.description
             ? parentBrand.portal.description.slice(40) + "..."
             : ""}")

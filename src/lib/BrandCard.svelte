@@ -1,15 +1,11 @@
 <script lang="ts">
   import {
-  Button,
-  ButtonSet,
-  Column,
-  Grid,
-  Row,
-  Tile,
-  ClickableTile
+  Button,ClickableTile,Grid,
+  Row
   } from "carbon-components-svelte";
   import Edit32 from "carbon-icons-svelte/lib/Edit32";
   import ParentChild16 from "carbon-icons-svelte/lib/ParentChild16";
+  import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import { createEventDispatcher } from "svelte";
   import { editing } from "../stores/stores";
   import type { Brand } from "./types";
@@ -37,14 +33,18 @@
 
   <Grid noGutter>
     <Row>
-        <div style="margin-left: 1em; margin-right: 1em; display: flex; align-items: self-end;">
-
+      <div
+        style="margin-left: 1em; margin-right: 1em; display: flex; align-items: self-end;"
+      >
         <p style="font-size: .8rem; margin-top: .5em;">
-         {(brand?.portalInherit?.name ? parentBrand?.portal?.name : brand?.portal?.name) || "TODO: Add portal name, URL, and description"}
+          {(brand?.portalInherit?.name
+            ? parentBrand?.portal?.name
+            : brand?.portal?.name) ||
+            "TODO: Add portal name, URL, and description"}
         </p>
-          <button class="example" kind="primary">View data</button>
-          <button class="example" kind="primary">Connect</button>
-        </div>
+        <button class="example" kind="primary">View data</button>
+        <button class="example" kind="primary">Connect</button>
+      </div>
     </Row>
   </Grid>
   <Edit32
@@ -56,22 +56,38 @@
   />
 </ClickableTile>
 {#if !brand.parentId}
-  <Button 
-  on:click={() => {
-      dispatchEvent("add-affiliated-brand", brand)
-  }}
-  small style="display: flex; align-items: centered; padding-left: 1em; padding-right: 1em; width: 100%; min-height: 2rem;" kind="tertiary">
-    <ParentChild16 /> Add affiliated brand
+  <Button
+    on:click={() => {
+      dispatchEvent("add-affiliated-brand", brand);
+    }}
+    small
+    style="display: flex; align-items: centered; padding-left: 1em; padding-right: 1em; width: 100%; min-height: 2rem; gap: 1em;"
+    kind="tertiary"
+  >
+    <ParentChild16 />
+    <div style="flex-grow: 1;">Add affiliated brand</div>
+  </Button>
+{:else}
+  <Button
+    on:click={() => {
+      dispatchEvent("remove-affiliated-brand", brand);
+    }}
+    small
+    style="display: flex; align-items: centered; padding-left: 1em; padding-right: 1em; width: 100%; min-height: 2rem; gap: 1em;"
+    kind="danger-tertiary"
+  >
+    <TrashCan16 />
+    <div style="flex-grow: 1;">Remove affiliated brand</div>
   </Button>
 {/if}
 
 <style>
   button.example {
-      font-size: .5rem;
-      white-space: nowrap;
-      border: 1px solid black;
-      margin-bottom: .2em;
-      margin-left: .2em;
+    font-size: 0.5rem;
+    white-space: nowrap;
+    border: 1px solid black;
+    margin-bottom: 0.2em;
+    margin-left: 0.2em;
   }
   .name {
     display: flex;
