@@ -1,8 +1,9 @@
 <script lang="ts">
   import BrandCard from "$lib/BrandCard.svelte";
   import BrandEditor from "$lib/BrandEditor.svelte";
+import debounce from "$lib/debounce";
   import { brandsToFHIR } from "$lib/interop";
-  import { Column,CopyButton,Grid,Row } from "carbon-components-svelte";
+  import { Column, CopyButton, Grid, Row } from "carbon-components-svelte";
   import "carbon-components-svelte/css/white.css";
   import * as uuid from "uuid";
   import type { Brand } from "../lib/types";
@@ -16,13 +17,12 @@
 
   $editing = { id: defaultBrand.id };
   let fhirExport = "";
-  $: {
-    fhirExport = JSON.stringify(
-      brandsToFHIR(cards, "https://ehr.example.org"),
-      null,
-      2
+
+ let debounceFhirInterval = debounce();
+  $: debounceFhirInterval(() => { fhirExport = JSON.stringify( brandsToFHIR(cards, "https://ehr.example.org"), null, 2); },
+      200
     );
-  }
+  
   function addChildBrand(id: string) {
     return (_e) => {
       const childCard: Brand = { ...defaultBrand, id: uuid.v4(), parentId: id };
