@@ -10,7 +10,6 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import { tick } from "svelte";
   import { encode } from "uint8-to-base64";
-import { locationToText } from "./interop";
   import type { Brand } from "./types";
 
   export let brand: Brand;
@@ -18,7 +17,6 @@ import { locationToText } from "./interop";
   let fileUploader;
   let aliasDom = [];
   let locationDom = [];
-  let locationFlat = [];
 
   let isAffiliate = false;
   let parentBrand: Brand;
@@ -37,24 +35,17 @@ import { locationToText } from "./interop";
     }
   }
 
-  let mounted = false;
   $: {
-    if (!mounted) {
-      mounted = true;
-      if (brand?.locations) {
-        locationFlat = (brand?.locations || []).map(locationToText);
-      }
-    } else if (brand && mounted) {
-      brand.locations = locationFlat.map((l) => {
+    if (brand) {
+      brand.locations = (brand.locations || []).map((loc) => {
+        let l = loc.text;
         let parsed = l.match(
           /(^(.*?),\s+)?(.+?),?\s*([A-z][A-z])\s*?([\d-]{5,})?$/
         );
         if (!parsed) {
           let parsedState = l.match(/^[A-z][A-z]$/);
           console.log("ParsedState", parsedState, `|${l}|`);
-          return parsedState ? {text: l, state: parsedState[0] } : {
-            text: l
-          };
+          return parsedState ? { text: l, state: parsedState[0] } : { text: l };
         }
         return {
           text: l,
@@ -65,6 +56,18 @@ import { locationToText } from "./interop";
         };
       });
     }
+  }
+
+  async function addAlias() {
+    (brand.alias = brand.alias || []).push("");
+    await tick();
+    aliasDom.slice(-1)[0].focus();
+  }
+
+  async function addLocation() {
+    brand.locations = [...brand.locations, { text: "" }];
+    await tick();
+    locationDom.slice(-1)[0].focus();
   }
 </script>
 
@@ -102,6 +105,9 @@ import { locationToText } from "./interop";
       {#each brand?.alias || [] as alias, i}
         <div style="display: flex; align-items: baseline; ">
           <TextInput
+            on:keyup={async (e) => {
+              e.key === "Enter" && addAlias();
+            }}
             bind:value={brand.alias[i]}
             bind:ref={aliasDom[i]}
             invalid={brand.alias[i] == ""}
@@ -115,15 +121,7 @@ import { locationToText } from "./interop";
           />
         </div>
       {/each}
-      <Button
-        on:click={async () => {
-          (brand.alias = brand.alias || []).push("");
-          await tick();
-          aliasDom.slice(-1)[0].focus();
-        }}
-        small
-        kind="ghost">Add alias</Button
-      >
+      <Button on:click={addAlias} small kind="ghost">Add alias</Button>
     </FormGroup>
     <FormGroup legendText="Brand logo">
       {#if brand.logo}
@@ -157,11 +155,13 @@ import { locationToText } from "./interop";
         A location (street address, city/state, or city/state/zip) associated
         with your Brand
       </div>
-      {#each locationFlat || [] as location, i}
+      {#each brand.locations || [] as location, i}
         <div style="display: flex; align-items: baseline; ">
           <TextInput
-            on:keyup={(e) => {}}
-            bind:value={locationFlat[i]}
+            on:keyup={async (e) => {
+              e.key === "Enter" && addLocation();
+            }}
+            bind:value={location.text}
             bind:ref={locationDom[i]}
             invalid={Object.entries(brand.locations[i]).length === 1}
             style="width: 100%;"
@@ -170,20 +170,12 @@ import { locationToText } from "./interop";
           <TrashCan16
             style="margin-left: .5em; cursor: pointer; min-width: 16px;"
             on:click={() => {
-              locationFlat = locationFlat.filter((a, ai) => ai !== i);
+              brand.locations = brand.locations.filter((a, ai) => ai !== i);
             }}
           />
         </div>
       {/each}
-      <Button
-        on:click={async () => {
-          (locationFlat = locationFlat || []).push("");
-          await tick();
-          locationDom.slice(-1)[0].focus();
-        }}
-        small
-        kind="ghost">Add location</Button
-      >
+      <Button on:click={addLocation} small kind="ghost">Add location</Button>
     </FormGroup>
 
     <FormGroup legendText="Categories (optional)">
