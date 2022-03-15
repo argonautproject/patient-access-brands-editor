@@ -2,39 +2,39 @@
   import BrandCard from "$lib/BrandCard.svelte";
   import BrandEditor from "$lib/BrandEditor.svelte";
   import debounce from "$lib/debounce";
-  import { brandsToFHIR, FHIRToBrands } from "$lib/interop";
-  import type { BrandBundle } from "$lib/interop";
-  import { Column, CopyButton, Grid, Row } from "carbon-components-svelte";
+  import { brandsToFHIR,FHIRToBrands } from "$lib/interop";
+  import { Column,CopyButton,Grid,Row } from "carbon-components-svelte";
   import "carbon-components-svelte/css/white.css";
+  import { onMount } from "svelte";
   import * as uuid from "uuid";
   import type { Brand } from "../lib/types";
   import { editing } from "../stores/stores";
 
-  import { onMount } from 'svelte'
-
-
-  let x: string = "OK";
   let defaultBrand: Brand = { id: uuid.v4(), name: "TODO: Add a name" };
   let cards = {
     [defaultBrand.id]: { ...defaultBrand },
   };
-  const defaultBaseUrl = "https://ehr.example.org" 
-  let baseUrl = defaultBaseUrl
+  editTopBrand();
+  
+  const defaultBaseUrl = "https://ehr.example.org";
+  let baseUrl = defaultBaseUrl;
 
   onMount(async () => {
     const params = new URLSearchParams(window.location.search);
-    const source = params.get("source")
+    const source = params.get("source");
     if (source) {
-      let sourceBundle = await fetch(source).then(r => r.json());
+      let sourceBundle = await fetch(source).then((r) => r.json());
       let sourceBrands = FHIRToBrands(sourceBundle);
       baseUrl = sourceBrands.baseUrl;
       cards = sourceBrands.brands;
-      $editing = { id: Object.values(cards).filter(b => !b.parentId)[0].id};
+      editTopBrand()
     }
-  })
+  });
 
+  function editTopBrand(){
+    $editing = { id: Object.values(cards).filter((b) => !b.parentId)[0].id };
+  }
 
-  $editing = { id: Object.values(cards).filter(b => !b.parentId)[0].id};
 
   let fhirExport = "";
 

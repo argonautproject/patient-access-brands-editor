@@ -1,5 +1,5 @@
-import type { Brand } from "./types";
 import _ from "lodash";
+import type { Brand } from "./types";
 
 export interface BrandBundle {
   resourceType: "Bundle";
@@ -140,7 +140,10 @@ function organizationToBrand(org: Organization): Brand {
   return brand;
 }
 
-export function FHIRToBrands(bundle: BrandBundle): {brands: Record<string, Brand>, baseUrl: string} {
+export function FHIRToBrands(bundle: BrandBundle): {
+  brands: Record<string, Brand>;
+  baseUrl: string;
+} {
   const baseUrls = bundle.entry
     .map((e) => e.fullUrl)
     .filter((u) => u.startsWith("https://"))
@@ -152,17 +155,17 @@ export function FHIRToBrands(bundle: BrandBundle): {brands: Record<string, Brand
   }
 
   const baseUrl = uniqueUrls[0];
-  console.log("base", baseUrl)
+  console.log("base", baseUrl);
 
   const brands = bundle.entry
     .map((e) => e.resource)
-    .filter(r => r.resourceType === "Organization")
-    .map(org => organizationToBrand(org as unknown as Organization));
+    .filter((r) => r.resourceType === "Organization")
+    .map((org) => organizationToBrand(org as unknown as Organization));
 
   return {
-      baseUrl,
-      brands: Object.fromEntries(brands.map(b => [b.id, b])),
-    };
+    baseUrl,
+    brands: Object.fromEntries(brands.map((b) => [b.id, b])),
+  };
 }
 
 export function brandsToFHIR(

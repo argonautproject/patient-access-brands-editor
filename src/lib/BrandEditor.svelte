@@ -1,19 +1,16 @@
 <script lang="ts">
   import {
-    Button,
-    FileUploader,
-    Form,
-    FormGroup,
-    MultiSelect,
-    TextInput,
+  Button,
+  FileUploader,
+  Form,
+  FormGroup,
+  MultiSelect,
+  TextInput
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import { tick } from "svelte";
-  import { listen } from "svelte/internal";
   import { encode } from "uint8-to-base64";
   import type { Brand } from "./types";
-
-  import { onMount } from "svelte";
 
   export let brand: Brand;
   export let brands: Record<string, Brand>;
@@ -50,7 +47,6 @@
           }${l.state ? l.state + " " : ""}${l.postalCode ?? ""}`.trim()
         );
       }
-
     } else if (brand && mounted) {
       brand.locations = locationFlat.map((l) => {
         let parsed = l.match(
