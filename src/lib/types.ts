@@ -10,7 +10,7 @@ export  interface Brand {
         line?: string[],
         city?: string,
         state?: string,
-        zip?: string
+        postalCode?: string
     }[];
     identifier?: {
       system: string;

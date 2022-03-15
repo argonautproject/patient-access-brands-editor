@@ -1,16 +1,19 @@
 <script lang="ts">
   import {
-  Button,
-  FileUploader,
-  Form,
-  FormGroup,
-  MultiSelect,
-  TextInput
+    Button,
+    FileUploader,
+    Form,
+    FormGroup,
+    MultiSelect,
+    TextInput,
   } from "carbon-components-svelte";
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import { tick } from "svelte";
+  import { listen } from "svelte/internal";
   import { encode } from "uint8-to-base64";
   import type { Brand } from "./types";
+
+  import { onMount } from "svelte";
 
   export let brand: Brand;
   export let brands: Record<string, Brand>;
@@ -28,12 +31,43 @@
     }
     if (brand && !brand?.portal) {
       brand.portal = {};
-      console.log("Brand", brand, isAffiliate);
       brand.portalInherit = {
         name: isAffiliate,
         website: isAffiliate,
         description: isAffiliate,
       };
+    }
+  }
+
+  let mounted = false;
+  $: {
+    if (!mounted) {
+      mounted = true;
+      if (brand?.locations) {
+        locationFlat = (brand?.locations || []).map((l) =>
+          `${l?.line?.length ? l.line.join(" ") + " " : ""}${
+            l.city ? l.city + ", " : ""
+          }${l.state ? l.state + " " : ""}${l.postalCode ?? ""}`.trim()
+        );
+      }
+
+    } else if (brand && mounted) {
+      brand.locations = locationFlat.map((l) => {
+        let parsed = l.match(
+          /(^(.*?),\s+)?(.+?),?\s*([A-z][A-z])\s*?([\d-]{5,})?$/
+        );
+        if (!parsed) {
+          let parsedState = l.match(/^[A-z][A-z]$/);
+          console.log("ParsedState", parsedState, `|${l}|`);
+          return parsedState ? { state: parsedState[0] } : null;
+        }
+        return {
+          line: [parsed[2]].filter(Boolean),
+          city: parsed[3],
+          state: parsed[4],
+          postalCode: parsed[5],
+        };
+      });
     }
   }
 </script>
@@ -130,24 +164,7 @@
       {#each locationFlat || [] as location, i}
         <div style="display: flex; align-items: baseline; ">
           <TextInput
-            on:keyup={(e) => {
-              let l = e.target;
-
-              let parsed = locationFlat[i].match(
-                /(^(.*?),\s+)?(.+?),?\s*([A-z][A-z])\s*?([\d-]{5,})?$/
-              );
-              if (parsed == null) {
-                brand.locations[i] = null;
-                return;
-              }
-              brand.locations = brand.locations ?? [];
-              brand.locations[i] = {
-                line: [parsed[2]].filter(Boolean),
-                city: parsed[3],
-                state: parsed[4],
-                zip: parsed[5],
-              };
-            }}
+            on:keyup={(e) => {}}
             bind:value={locationFlat[i]}
             bind:ref={locationDom[i]}
             invalid={!brand?.locations?.[i]}
@@ -156,8 +173,9 @@
           />
           <TrashCan16
             style="margin-left: .5em; cursor: pointer; min-width: 16px;"
-            on:click={() =>
-              (locationFlat = locationFlat.filter((a, ai) => ai !== i))}
+            on:click={() => {
+              locationFlat = locationFlat.filter((a, ai) => ai !== i);
+            }}
           />
         </div>
       {/each}

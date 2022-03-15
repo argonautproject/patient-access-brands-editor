@@ -1,6 +1,7 @@
 import type { Brand } from "./types";
+import _ from "lodash";
 
-interface BrandBundle {
+export interface BrandBundle {
   resourceType: "Bundle";
   type: "collection";
   entry: {
@@ -13,6 +14,51 @@ interface BrandBundle {
   }[];
 }
 
+interface Identifier {
+  system: string;
+  value: string;
+}
+
+interface Coding {
+  system: string;
+  code: string;
+  display?: string;
+}
+
+interface CodeableConcept {
+  coding: Coding[];
+}
+
+interface Reference {
+  identifier?: Identifier;
+  reference: string;
+  display?: string;
+}
+
+interface Organization {
+  resourceType: "Organization";
+  id: string;
+  extension: {
+    url: string;
+    valueString?: string;
+    valueIdentifier?: Identifier;
+    valueCoding?: Coding;
+    valueUrl: string;
+  }[];
+  identifier?: Identifier[];
+  name: string;
+  alias: string[];
+  address: {
+    line: string[];
+    city: string;
+    state: string;
+    postalCode: string;
+  }[];
+  telecom: Identifier[];
+  type: CodeableConcept[];
+  partOf: Reference;
+}
+
 function identifierFromUrl(url: string) {
   try {
     let u = new URL(url);
@@ -20,6 +66,103 @@ function identifierFromUrl(url: string) {
   } catch {
     return undefined;
   }
+}
+
+const NO_BASE_URL = "https://example.org/fhir";
+function extractBaseUrl(fullUrl: string): string {
+  let fullUrlMatch = fullUrl.match(/(https:\/\/.+)\/[^/]+\/[^/]+/);
+  return fullUrlMatch ? fullUrlMatch[1] : NO_BASE_URL;
+}
+
+function organizationToBrand(org: Organization): Brand {
+  const brand: Brand = {
+    id: org.id,
+    parentId: org?.partOf?.reference
+      ? org.partOf.reference.split("Organization/")[1]
+      : undefined,
+    name: org.name,
+    alias: org.alias,
+    categories: (org.type || []).map((t) => t.coding[0].code),
+    locations: org.address,
+    portal: {},
+    portalInherit: {
+      name: false,
+      description: false,
+      website: false,
+    },
+  };
+
+  const logo = org.extension.filter(
+    (e) => e.url === "https://argonaut.fhir.us/brand-logo"
+  );
+  if (logo.length > 0) {
+    brand.logo = logo[0].valueUrl;
+  }
+
+  const portalName = org.extension.filter(
+    (e) => e.url === "https://argonaut.fhir.us/patient-access-name"
+  );
+  if (portalName.length > 0) {
+    brand.portal.name = portalName[0].valueString;
+  }
+
+  const portalDescription = org.extension.filter(
+    (e) => e.url === "https://argonaut.fhir.us/patient-access-description"
+  );
+  if (portalDescription.length > 0) {
+    brand.portal.description = portalDescription[0].valueString;
+  }
+
+  const portalUrl = org.extension.filter(
+    (e) => e.url === "https://argonaut.fhir.us/patient-access-url"
+  );
+  if (portalUrl.length > 0) {
+    brand.portal.website = portalUrl[0].valueUrl;
+  }
+
+  if (brand.parentId) {
+    if (!brand?.portal?.name) {
+      brand.portalInherit.name = true;
+    }
+    if (!brand?.portal?.description) {
+      brand.portalInherit.description = true;
+    }
+    if (!brand?.portal?.website) {
+      brand.portalInherit.website = true;
+    }
+  }
+
+  const website = org.telecom.filter((t) => t.system === "url");
+  if (website.length > 0) {
+    brand.website = website[0].value;
+  }
+
+  return brand;
+}
+
+export function FHIRToBrands(bundle: BrandBundle): {brands: Record<string, Brand>, baseUrl: string} {
+  const baseUrls = bundle.entry
+    .map((e) => e.fullUrl)
+    .filter((u) => u.startsWith("https://"))
+    .map(extractBaseUrl);
+  let uniqueUrls = _.uniq(baseUrls);
+  if (uniqueUrls.length > 1) {
+    console.log("Can't determine base URL", uniqueUrls);
+    uniqueUrls = [];
+  }
+
+  const baseUrl = uniqueUrls[0];
+  console.log("base", baseUrl)
+
+  const brands = bundle.entry
+    .map((e) => e.resource)
+    .filter(r => r.resourceType === "Organization")
+    .map(org => organizationToBrand(org as unknown as Organization));
+
+  return {
+      baseUrl,
+      brands: Object.fromEntries(brands.map(b => [b.id, b])),
+    };
 }
 
 export function brandsToFHIR(
@@ -79,7 +222,7 @@ export function brandsToFHIR(
           line: a?.line,
           city: a?.city,
           state: a?.state,
-          postalCode: a?.zip,
+          postalCode: a?.postalCode,
         })),
         telecom: [
           ...(brand.website
