@@ -15,16 +15,17 @@
     [defaultBrand.id]: { ...defaultBrand },
   };
   editTopBrand();
-  
+
   const defaultBaseUrl = "https://ehr.example.org";
   let baseUrl = defaultBaseUrl;
 
   onMount(async () => {
     const params = new URLSearchParams(window.location.search);
     const source = params.get("source");
+    const rootBrand = params.get("root");
     if (source) {
       let sourceBundle = await fetch(source).then((r) => r.json());
-      let sourceBrands = FHIRToBrands(sourceBundle);
+      let sourceBrands = FHIRToBrands(sourceBundle, rootBrand);
       baseUrl = sourceBrands.baseUrl;
       cards = sourceBrands.brands;
       editTopBrand()
@@ -32,7 +33,14 @@
   });
 
   function editTopBrand(){
-    $editing = { id: Object.values(cards).filter((b) => !b.parentId)[0].id };
+    let cardContents = Object.values(cards);
+    if (cardContents.length === 0) {
+      return;
+    } else if (cardContents.length === 1) {
+      $editing = { id: cardContents[0].id};
+    } else {
+      $editing = { id: cardContents.filter((b) => !b.parentId)[0].id };
+    }
   }
 
 

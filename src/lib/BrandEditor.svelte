@@ -10,6 +10,7 @@
   import TrashCan16 from "carbon-icons-svelte/lib/TrashCan16";
   import { tick } from "svelte";
   import { encode } from "uint8-to-base64";
+import { locationToText } from "./interop";
   import type { Brand } from "./types";
 
   export let brand: Brand;
@@ -41,11 +42,7 @@
     if (!mounted) {
       mounted = true;
       if (brand?.locations) {
-        locationFlat = (brand?.locations || []).map((l) =>
-          `${l?.line?.length ? l.line.join(" ") + " " : ""}${
-            l.city ? l.city + ", " : ""
-          }${l.state ? l.state + " " : ""}${l.postalCode ?? ""}`.trim()
-        );
+        locationFlat = (brand?.locations || []).map(locationToText);
       }
     } else if (brand && mounted) {
       brand.locations = locationFlat.map((l) => {
@@ -55,9 +52,12 @@
         if (!parsed) {
           let parsedState = l.match(/^[A-z][A-z]$/);
           console.log("ParsedState", parsedState, `|${l}|`);
-          return parsedState ? { state: parsedState[0] } : null;
+          return parsedState ? {text: l, state: parsedState[0] } : {
+            text: l
+          };
         }
         return {
+          text: l,
           line: [parsed[2]].filter(Boolean),
           city: parsed[3],
           state: parsed[4],
@@ -163,7 +163,7 @@
             on:keyup={(e) => {}}
             bind:value={locationFlat[i]}
             bind:ref={locationDom[i]}
-            invalid={!brand?.locations?.[i]}
+            invalid={Object.entries(brand.locations[i]).length === 1}
             style="width: 100%;"
             placeholder="123 Regent St, Madison, WI 53726"
           />

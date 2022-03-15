@@ -74,6 +74,12 @@ function extractBaseUrl(fullUrl: string): string {
   return fullUrlMatch ? fullUrlMatch[1] : NO_BASE_URL;
 }
 
+export function locationToText(l: Brand["locations"][number]): string {
+    return `${l?.line?.length ? l.line.join(" ") + " " : ""}${
+            l.city ? l.city + ", " : ""
+          }${l.state ? l.state + " " : ""}${l.postalCode ?? ""}`.trim()
+
+}
 function organizationToBrand(org: Organization): Brand {
   const brand: Brand = {
     id: org.id,
@@ -83,7 +89,7 @@ function organizationToBrand(org: Organization): Brand {
     name: org.name,
     alias: org.alias,
     categories: (org.type || []).map((t) => t.coding[0].code),
-    locations: org.address,
+    locations: org.address.map(o => ({...o, text: locationToText(o as any)})),
     portal: {},
     portalInherit: {
       name: false,
@@ -140,26 +146,31 @@ function organizationToBrand(org: Organization): Brand {
   return brand;
 }
 
-export function FHIRToBrands(bundle: BrandBundle): {
+export function FHIRToBrands(bundle: BrandBundle, rootBrand?: string): {
   brands: Record<string, Brand>;
   baseUrl: string;
 } {
+  const brandsInScope = bundle.entry
+    .filter((e) => e.resource.resourceType === "Organization")
+    .map((e) => e.resource as unknown as Organization)
+    .filter((o: Organization) => !rootBrand || o.id === rootBrand || o?.partOf?.reference.endsWith(rootBrand));
+console.log("root", rootBrand, brandsInScope)
+
   const baseUrls = bundle.entry
     .map((e) => e.fullUrl)
     .filter((u) => u.startsWith("https://"))
     .map(extractBaseUrl);
+
   let uniqueUrls = _.uniq(baseUrls);
   if (uniqueUrls.length > 1) {
     console.log("Can't determine base URL", uniqueUrls);
     uniqueUrls = [];
   }
-
   const baseUrl = uniqueUrls[0];
   console.log("base", baseUrl);
 
-  const brands = bundle.entry
-    .map((e) => e.resource)
-    .filter((r) => r.resourceType === "Organization")
+
+  const brands = brandsInScope
     .map((org) => organizationToBrand(org as unknown as Organization));
 
   return {

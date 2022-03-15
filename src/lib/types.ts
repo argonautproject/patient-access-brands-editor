@@ -7,6 +7,7 @@ export  interface Brand {
     alias?: string[];
     categories?: string[];
     locations?: {
+        text: string,
         line?: string[],
         city?: string,
         state?: string,
