@@ -39,20 +39,19 @@
     if (brand) {
       brand.locations = (brand.locations || []).map((loc) => {
         let l = loc.text;
-        let parsed = l.match(
-          /(^(.*?),\s+)?(.+?),?\s*([A-z][A-z])\s*?([\d-]{5,})?$/
-        );
+        let parsed = l.match(/^((.*?),\s+)?((.+?),?\s+)?([A-z][A-z]),?\s*?([\d-]{5,})?$/)
         if (!parsed) {
           let parsedState = l.match(/^[A-z][A-z]$/);
           console.log("ParsedState", parsedState, `|${l}|`);
           return parsedState ? { text: l, state: parsedState[0] } : { text: l };
         }
+
         return {
           text: l,
-          line: [parsed[2]].filter(Boolean),
-          city: parsed[3],
-          state: parsed[4],
-          postalCode: parsed[5],
+          line: parsed[2] && parsed[4] ? [parsed[2]] : undefined,
+          city: parsed[4] || parsed[2],
+          state: parsed[5],
+          postalCode: parsed[6],
         };
       });
     }

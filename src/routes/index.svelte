@@ -2,8 +2,8 @@
   import BrandCard from "$lib/BrandCard.svelte";
   import BrandEditor from "$lib/BrandEditor.svelte";
   import debounce from "$lib/debounce";
-  import { brandsToFHIR,FHIRToBrands } from "$lib/interop";
-  import { Column,CopyButton,Grid,Row } from "carbon-components-svelte";
+  import { brandsToFHIR, FHIRToBrands } from "$lib/interop";
+  import { Column, CopyButton, Grid, Row } from "carbon-components-svelte";
   import "carbon-components-svelte/css/white.css";
   import { onMount } from "svelte";
   import * as uuid from "uuid";
@@ -11,11 +11,7 @@
   import { editing } from "../stores/stores";
 
   let defaultBrand: Brand = { id: uuid.v4(), name: "TODO: Add a name" };
-  let cards = {
-    [defaultBrand.id]: { ...defaultBrand },
-  };
-  editTopBrand();
-
+  let cards: Record<string, Brand> = {};
   const defaultBaseUrl = "https://ehr.example.org";
   let baseUrl = defaultBaseUrl;
 
@@ -28,21 +24,24 @@
       let sourceBrands = FHIRToBrands(sourceBundle, rootBrand);
       baseUrl = sourceBrands.baseUrl;
       cards = sourceBrands.brands;
-      editTopBrand()
+    } else {
+      cards = {
+        [defaultBrand.id]: { ...defaultBrand },
+      };
     }
+    editTopBrand();
   });
 
-  function editTopBrand(){
+  function editTopBrand() {
     let cardContents = Object.values(cards);
     if (cardContents.length === 0) {
       return;
     } else if (cardContents.length === 1) {
-      $editing = { id: cardContents[0].id};
+      $editing = { id: cardContents[0].id };
     } else {
       $editing = { id: cardContents.filter((b) => !b.parentId)[0].id };
     }
   }
-
 
   let fhirExport = "";
 

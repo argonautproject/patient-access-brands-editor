@@ -4,6 +4,9 @@ import type { Brand } from "./types";
 export interface BrandBundle {
   resourceType: "Bundle";
   type: "collection";
+  meta: {
+    lastUpdated: string;
+  };
   entry: {
     fullUrl: string;
     resource: {
@@ -75,10 +78,9 @@ function extractBaseUrl(fullUrl: string): string {
 }
 
 export function locationToText(l: Brand["locations"][number]): string {
-    return `${l?.line?.length ? l.line.join(" ") + " " : ""}${
-            l.city ? l.city + ", " : ""
-          }${l.state ? l.state + " " : ""}${l.postalCode ?? ""}`.trim()
-
+  return `${l?.line?.length ? l.line.join(" ") + " " : ""}${
+    l.city ? l.city + ", " : ""
+  }${l.state ? l.state + " " : ""}${l.postalCode ?? ""}`.trim();
 }
 function organizationToBrand(org: Organization): Brand {
   const brand: Brand = {
@@ -89,7 +91,10 @@ function organizationToBrand(org: Organization): Brand {
     name: org.name,
     alias: org.alias,
     categories: (org.type || []).map((t) => t.coding[0].code),
-    locations: org.address.map(o => ({...o, text: locationToText(o as any)})),
+    locations: org.address.map((o) => ({
+      ...o,
+      text: locationToText(o as any),
+    })),
     portal: {},
     portalInherit: {
       name: false,
@@ -146,15 +151,23 @@ function organizationToBrand(org: Organization): Brand {
   return brand;
 }
 
-export function FHIRToBrands(bundle: BrandBundle, rootBrand?: string): {
+export function FHIRToBrands(
+  bundle: BrandBundle,
+  rootBrand?: string
+): {
   brands: Record<string, Brand>;
   baseUrl: string;
 } {
   const brandsInScope = bundle.entry
     .filter((e) => e.resource.resourceType === "Organization")
     .map((e) => e.resource as unknown as Organization)
-    .filter((o: Organization) => !rootBrand || o.id === rootBrand || o?.partOf?.reference.endsWith(rootBrand));
-console.log("root", rootBrand, brandsInScope)
+    .filter(
+      (o: Organization) =>
+        !rootBrand ||
+        o.id === rootBrand ||
+        o?.partOf?.reference.endsWith(rootBrand)
+    );
+  console.log("root", rootBrand, brandsInScope);
 
   const baseUrls = bundle.entry
     .map((e) => e.fullUrl)
@@ -169,14 +182,109 @@ console.log("root", rootBrand, brandsInScope)
   const baseUrl = uniqueUrls[0];
   console.log("base", baseUrl);
 
-
-  const brands = brandsInScope
-    .map((org) => organizationToBrand(org as unknown as Organization));
+  const brands = brandsInScope.map((org) =>
+    organizationToBrand(org as unknown as Organization)
+  );
 
   return {
     baseUrl,
     brands: Object.fromEntries(brands.map((b) => [b.id, b])),
   };
+}
+
+export function brandToFhir(
+  brand: Brand,
+  baseUrl: string
+): BrandBundle["entry"][number] {
+  const id = brand.id;
+  const ret = {
+    fullUrl: `${baseUrl}/Organization/${id}`,
+    resource: {
+      resourceType: "Organization",
+      id,
+      extension: [
+        ...(brand?.logo
+          ? [
+              {
+                url: "https://argonaut.fhir.us/brand-logo",
+                valueUrl: brand.logo,
+              },
+            ]
+          : []),
+        ...(!brand?.portalInherit?.website && brand?.portal?.website
+          ? [
+              {
+                url: "https://argonaut.fhir.us/patient-access-url",
+                valueUrl: brand.portal.website,
+              },
+            ]
+          : []),
+        ...(!brand?.portalInherit?.name && brand.portal?.name
+          ? [
+              {
+                url: "https://argonaut.fhir.us/patient-access-name",
+                valueString: brand.portal.name,
+              },
+            ]
+          : []),
+        ...(!brand.portalInherit?.description && brand.portal?.description
+          ? [
+              {
+                url: "https://argonaut.fhir.us/patient-access-description",
+                valueString: brand.portal.description,
+              },
+            ]
+          : []),
+      ],
+      name: brand.name,
+      partOf: brand.parentId
+        ? {
+            reference: `Organization/${brand.parentId}`,
+          }
+        : undefined,
+      alias: brand.alias,
+      address: (brand.locations || []).map((a) => ({
+        line: a?.line,
+        city: a?.city,
+        state: a?.state,
+        postalCode: a?.postalCode,
+      })),
+      telecom: [
+        {
+          system: "url",
+          value: brand.website,
+        },
+      ],
+      identifier: [
+        ...(identifierFromUrl(brand?.website)
+          ? [
+              {
+                system: "urn:ietf:rfc:3986",
+                value: identifierFromUrl(brand?.website),
+              },
+            ]
+          : []),
+      ],
+      type: (brand?.categories || []).map((code) => ({
+        coding: [
+          {
+            system: "https://argonaut.fhir.us",
+            code,
+          },
+        ],
+      })),
+    },
+  };
+
+
+  ["alias", "address", "extension", "identifier", "type"].forEach(p => {
+  if (ret?.resource?.[p]?.length === 0) {
+    delete ret.resource[p]
+  }
+ 
+  })
+
+  return ret;
 }
 
 export function brandsToFHIR(
@@ -186,87 +294,11 @@ export function brandsToFHIR(
   return {
     resourceType: "Bundle",
     type: "collection",
-    entry: Object.entries(brands).map(([id, brand]) => ({
-      fullUrl: `${baseUrl}/Organization/${id}`,
-      resource: {
-        resourceType: "Organization",
-        id,
-        extension: [
-          ...(brand?.logo
-            ? [
-                {
-                  url: "https://argonaut.fhir.us/brand-logo",
-                  valueUrl: brand.logo,
-                },
-              ]
-            : []),
-          ...(!brand?.portalInherit?.website && brand?.portal?.website
-            ? [
-                {
-                  url: "https://argonaut.fhir.us/patient-access-url",
-                  valueUrl: brand.portal.website,
-                },
-              ]
-            : []),
-          ...(!brand?.portalInherit?.name && brand.portal?.name
-            ? [
-                {
-                  url: "https://argonaut.fhir.us/patient-access-name",
-                  valueString: brand.portal.name,
-                },
-              ]
-            : []),
-          ...(!brand.portalInherit?.description && brand.portal?.description
-            ? [
-                {
-                  url: "https://argonaut.fhir.us/patient-access-description",
-                  valueString: brand.portal.description,
-                },
-              ]
-            : []),
-        ],
-        name: brand.name,
-        partOf: brand.parentId
-          ? {
-              reference: `Organization/${brand.parentId}`,
-            }
-          : undefined,
-        alias: brand.alias,
-        address: (brand.locations || []).map((a) => ({
-          line: a?.line,
-          city: a?.city,
-          state: a?.state,
-          postalCode: a?.postalCode,
-        })),
-        telecom: [
-          ...(brand.website
-            ? [
-                {
-                  system: "url",
-                  value: brand.website,
-                },
-              ]
-            : []),
-        ],
-        identifier: [
-          ...(identifierFromUrl(brand?.website)
-            ? [
-                {
-                  system: "urn:ietf:rfc:3986",
-                  value: identifierFromUrl(brand?.website),
-                },
-              ]
-            : []),
-        ],
-        type: (brand?.categories || []).map((code) => ({
-          coding: [
-            {
-              system: "https://argonaut.fhir.us",
-              code,
-            },
-          ],
-        })),
-      },
-    })),
+    meta: {
+      lastUpdated: new Date().toISOString(),
+    },
+    entry: Object.entries(brands).map(([id, brand]) =>
+      brandToFhir(brand, baseUrl)
+    ),
   };
 }
