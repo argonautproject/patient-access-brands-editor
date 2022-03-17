@@ -82,7 +82,6 @@
     </Column>
   </Row>
   <Row>
-    
     <Column lg={4} sm={4} style="margin-bottom: 1em;">
       <Grid noGutter>
         <Row>
@@ -104,7 +103,7 @@
         <BrandEditor brands={cards} bind:brand={cards[$editing.id]} />
       {/key}
     </Column>
-<Column style="position: relative;" lg={4} sm={4}>
+    <Column style="position: relative;" lg={4} sm={4}>
       <pre style="overflow-x: clip; margin-bottom: 1em;">{fhirExport}</pre>
       <CopyButton
         style="position: absolute; top: 0px; right: 1rem;"
