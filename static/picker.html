@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Patient Access Picker</title>
+    <!-- TODO: Build this with a proper bundler -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      img {
+        height: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const DEFAULT_BRAND_FILES = [
+        "https://raw.githubusercontent.com/argonautproject/patient-access-brands-edit?or/main/src/fixtures/example-brand-bundle.unitypoint.json",
+      ];
+
+      const brandFiles = Promise.all(
+        DEFAULT_BRAND_FILES.concat([]).map((f) =>
+          fetch(f).then((r) => r.json())
+        )
+      ).then(parseBrands);
+
+      async function parseBrands(brandFiles) {
+        const orgs = brandFiles.flatMap((bf) =>
+          bf.entry
+            .filter((e) => e.resource.resourceType === "Organization")
+            .map((o) => ({
+              organization: o.resource,
+              parent: o.resource?.partOf
+                ? bf.entry
+                    .filter(
+                      (e) =>
+                        e.resource.resourceType === "Organization" &&
+                        e.resource.id ===
+                          o.resource.partOf.reference.split("/").at(-1)
+                    )
+                    .map((e) => e.resource)
+                    .at(0)
+                : null,
+              endpoints: bf.entry
+                .filter(
+                  (e) =>
+                    e.resource.resourceType === "Endpoint" &&
+                    [
+                      `Organization/${o.resource.id}`,
+                      `${o.resource?.partOf?.reference}`,
+                    ].includes(e.resource.managingOrganization.reference)
+                )
+                .map((e) => e.resource),
+            }))
+        );
+
+        return orgs;
+      }
+
+      function App() {
+        let [brands, setBrands] = React.useState([]);
+        let [filter, setFilter] = React.useState("");
+        React.useEffect(() => {
+          brandFiles.then(setBrands);
+        });
+
+        const filteredBrands = brands.filter((b) => {
+          const substrate = JSON.stringify(b.organization).toLowerCase();
+          return filter
+            .split(/\s+/)
+            .every((f) => substrate.match(f.toLowerCase()));
+        });
+
+        function connectTo(b) {
+          console.log("Connect to", b);
+          window?.opener.postMessage(
+            {
+              picked: b,
+            },
+            "*"
+          );
+        }
+
+        return (
+          <>
+            <h1>Select a brand</h1>
+            <input
+              type="text"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+            />
+            {filteredBrands.length ? (
+              <ol>
+                {filteredBrands.map((b) => (
+                  <li key={b.organization.identifier[0].value}>
+                    <button onClick={(e) => connectTo(b)}>
+                      Connect to {b.organization.name}
+                    </button>{" "}
+                    {b.parent ? <span>part of {b.parent.name}</span> : null}{" "}
+                    (Endpoints: {b.endpoints.length}) <br />
+                    <img
+                      src={b.organization.extension
+                        .filter((e) => e.url.match("brand-logo"))
+                        .map((e) => e.valueUrl)}
+                    />
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              "No brands found"
+            )}
+          </>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+    </script>
+  </body>
+</html>
