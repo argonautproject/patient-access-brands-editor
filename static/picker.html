@@ -98,7 +98,7 @@
 						{filteredBrands.length ? (
 							<ol>
 								{filteredBrands.map((b) => (
-									<li key={b.organization.identifier[0].value}>
+									<li key={b.organization.identifier[0].value || b.organization.id}>
 										<button onClick={(e) => connectTo(b)}>Connect to {b.organization.name}</button>{' '}
 										{b.parent ? <span>part of {b.parent.name}</span> : null} (Endpoints:{' '}
 										{b.endpoints.length}) <br />
