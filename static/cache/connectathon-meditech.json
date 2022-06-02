@@ -1,0 +1,610 @@
+{
+    "resourceType": "Bundle",
+    "type": "collection",
+    "meta": {
+        "lastUpdated": "2022-06-02T13:38:29.977Z"
+    },
+    "total": 13,
+    "entry": [
+        {
+            "resource": {
+                "resourceType": "Endpoint",
+                "id": "2eaaa853-f779-5832-a439-09996e31a0d4",
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "valueCode": "4.0.1"
+                    }
+                ],
+                "status": "active",
+                "connectionType": {
+                    "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+                    "code": "hl7-fhir-rest"
+                },
+                "name": "Anderson Hospital",
+                "managingOrganization": {
+                    "reference": "8e583756-f249-5b89-85df-84501ca8b3a1"
+                },
+                "period": {
+                    "start": "2022-04-26T22:51:39.000Z"
+                },
+                "payloadType": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://hl7.org/fhir/us/davinci-pdex-plan-net/CodeSystem/EndpointPayloadTypeCS",
+                                "code": "NA"
+                            }
+                        ]
+                    }
+                ],
+                "payloadMimeType": [
+                    "application/fhir+json",
+                    "application/json+fhir",
+                    "application/xml+fhir",
+                    "application/fhir+xml"
+                ],
+                "address": "https://mtrestapis-live02.andersonhealthcare.org:443/v1/uscore/R4"
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Organization",
+                "id": "8e583756-f249-5b89-85df-84501ca8b3a1",
+                "name": "Anderson Hospital",
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "https://www.andersonhospital.org"
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "url",
+                        "value": "https://www.andersonhospital.org"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
+                    },
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "valueUrl": "https://myhealth.andersonhealthcare.org/"
+                    },
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "valueUrl": "Anderson Healthcare MyHealth Patient Portal"
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "6800 State Rt. 162"
+                        ],
+                        "city": "Maryville",
+                        "state": "IL",
+                        "postalCode": "62062"
+                    }
+                ],
+                "type": [
+                    {
+                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                        "code": "hospital"
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Endpoint",
+                "id": "5d533530-2857-5818-9d31-b80e6257edc4",
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "valueCode": "4.0.1"
+                    }
+                ],
+                "status": "active",
+                "connectionType": {
+                    "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+                    "code": "hl7-fhir-rest"
+                },
+                "name": "Androscoggin Valley Hospital",
+                "managingOrganization": {
+                    "reference": "485d2fd0-5063-5dbb-acb5-01855b962521"
+                },
+                "period": {
+                    "start": "2022-05-11T22:51:37.000Z"
+                },
+                "payloadType": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://hl7.org/fhir/us/davinci-pdex-plan-net/CodeSystem/EndpointPayloadTypeCS",
+                                "code": "NA"
+                            }
+                        ]
+                    }
+                ],
+                "payloadMimeType": [
+                    "application/fhir+json",
+                    "application/json+fhir",
+                    "application/xml+fhir",
+                    "application/fhir+xml"
+                ],
+                "address": "https://mtrestapis-live02.avhnh.org:443/v1/uscore/R4"
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Organization",
+                "id": "485d2fd0-5063-5dbb-acb5-01855b962521",
+                "name": "Androscoggin Valley Hospital",
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "https://avhnh.org/"
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "url",
+                        "value": "https://avhnh.org/"
+                    }
+                ],
+                "alias": [
+                    "North Country Healthcare"
+                ],
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
+                    },
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "valueUrl": "https://myavh.avhnh.org/"
+                    },
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "valueUrl": "Patient Health Portal"
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "59 Page Hill Rd"
+                        ],
+                        "city": "Berlin",
+                        "state": "NH",
+                        "postalCode": "03570"
+                    }
+                ],
+                "type": [
+                    {
+                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                        "code": "hospital"
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Endpoint",
+                "id": "545a3a7a-a07d-556f-b99e-e053f1f3a98b",
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "valueCode": "4.0.1"
+                    }
+                ],
+                "status": "active",
+                "connectionType": {
+                    "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+                    "code": "hl7-fhir-rest"
+                },
+                "name": "Appalachian Regional Healthcare",
+                "managingOrganization": {
+                    "reference": "effe381a-c376-5d57-949d-0e57444deeef"
+                },
+                "period": {
+                    "start": "2022-03-22T22:51:36.000Z"
+                },
+                "payloadType": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://hl7.org/fhir/us/davinci-pdex-plan-net/CodeSystem/EndpointPayloadTypeCS",
+                                "code": "NA"
+                            }
+                        ]
+                    }
+                ],
+                "payloadMimeType": [
+                    "application/fhir+json",
+                    "application/json+fhir",
+                    "application/xml+fhir",
+                    "application/fhir+xml"
+                ],
+                "address": "https://mtrestapis-live01.arh.org:443/v1/uscore/R4"
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Organization",
+                "id": "effe381a-c376-5d57-949d-0e57444deeef",
+                "name": "Appalachian Regional Healthcare",
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "https://arh.org"
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "url",
+                        "value": "https://arh.org"
+                    }
+                ],
+                "alias": [
+                    "Middlesboro ARH Hospital",
+                    "Hazard ARH Regional Medical Center",
+                    "ARH Community Pharmacy"
+                ],
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
+                    },
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "valueUrl": "https://www.arh.org/myarhchart/"
+                    },
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "valueUrl": "My ARH Chart"
+                    }
+                ],
+                "address": [
+                    {
+                        "city": "Middlesboro",
+                        "state": "KY",
+                        "postalCode": "40965"
+                    },
+                    {
+                        "city": "Hazard",
+                        "state": "KY",
+                        "postalCode": "41701"
+                    }
+                ],
+                "type": [
+                    {
+                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                        "code": "health-system"
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Organization",
+                "id": "12ac86e9-5930-4486-b226-5588aa32adee",
+                "name": "Middlesboro ARH Hospital",
+                "partOf": {
+                    "reference": "effe381a-c376-5d57-949d-0e57444deeef"
+                },
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "https://www.arh.org/portfolio_page/middlesboro-arh-hospital/"
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "url",
+                        "value": "https://www.arh.org/portfolio_page/middlesboro-arh-hospital/"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "3600 West Cumberland Ave"
+                        ],
+                        "city": "Middlesboro",
+                        "state": "KY",
+                        "postalCode": "40965"
+                    }
+                ],
+                "type": [
+                    {
+                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                        "code": "hospital"
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Organization",
+                "id": "108f8b10-a647-4fef-874c-f3e0e81c6c38",
+                "name": "Hazard ARH Regional Medical Center",
+                "partOf": {
+                    "reference": "effe381a-c376-5d57-949d-0e57444deeef"
+                },
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "https://www.arh.org/portfolio_page/hazard-arh-regional-medical-center/"
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "url",
+                        "value": "https://www.arh.org/portfolio_page/hazard-arh-regional-medical-center/"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "100 Medical Center Drive"
+                        ],
+                        "city": "Hazard",
+                        "state": "KY",
+                        "postalCode": "41701"
+                    }
+                ],
+                "type": [
+                    {
+                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                        "code": "hospital"
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Organization",
+                "id": "ad51504c-8236-4dee-a25d-6769c87ae284",
+                "name": "ARH Community Pharmacy",
+                "partOf": {
+                    "reference": "effe381a-c376-5d57-949d-0e57444deeef"
+                },
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "https://www.arh.org/portfolio_page/arh-community-pharmacy/"
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "url",
+                        "value": "https://www.arh.org/portfolio_page/arh-community-pharmacy/"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "210 Black Gold Blvd Suite 104"
+                        ],
+                        "city": "Hazard",
+                        "state": "KY",
+                        "postalCode": "41701"
+                    }
+                ],
+                "type": [
+                    {
+                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                        "code": "pharmacy"
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Endpoint",
+                "id": "b39c1f77-5544-51e1-95e4-c447f30e2343",
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "valueCode": "4.0.1"
+                    }
+                ],
+                "status": "active",
+                "connectionType": {
+                    "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+                    "code": "hl7-fhir-rest"
+                },
+                "name": "Phelps Memorial Health Center",
+                "managingOrganization": {
+                    "reference": "2abc541c-3bc9-5839-b0a1-7f7414a69196"
+                },
+                "period": {
+                    "start": "2022-04-20T22:51:05.000Z"
+                },
+                "payloadType": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://hl7.org/fhir/us/davinci-pdex-plan-net/CodeSystem/EndpointPayloadTypeCS",
+                                "code": "NA"
+                            }
+                        ]
+                    }
+                ],
+                "payloadMimeType": [
+                    "application/fhir+json",
+                    "application/json+fhir",
+                    "application/xml+fhir",
+                    "application/fhir+xml"
+                ],
+                "address": "https://tv-mtrestapis-live.phelpsmemorial.com:443/v1/uscore/R4"
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Organization",
+                "id": "2abc541c-3bc9-5839-b0a1-7f7414a69196",
+                "name": "Phelps Memorial Health Center",
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "https://www.phelpsmemorial.com"
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "url",
+                        "value": "https://www.phelpsmemorial.com"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
+                    },
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "valueUrl": "https://ehr.phelpsmemorial.com"
+                    },
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "valueUrl": "PMHC Patient Portal"
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "1215 Tibbals St"
+                        ],
+                        "city": "Holdrege",
+                        "state": "NE",
+                        "postalCode": "68949"
+                    }
+                ],
+                "type": [
+                    {
+                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                        "code": "hospital"
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Endpoint",
+                "id": "6a4f25ce-9a4e-56d5-b9b9-9a3354d2d816",
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "valueCode": "4.0.1"
+                    }
+                ],
+                "status": "active",
+                "connectionType": {
+                    "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+                    "code": "hl7-fhir-rest"
+                },
+                "name": "St Anthony Regional Hospital",
+                "managingOrganization": {
+                    "reference": "6ea65c28-1b50-5f6f-9924-3c498ceb230a"
+                },
+                "period": {
+                    "start": "2022-03-22T22:51:30.000Z"
+                },
+                "payloadType": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://hl7.org/fhir/us/davinci-pdex-plan-net/CodeSystem/EndpointPayloadTypeCS",
+                                "code": "NA"
+                            }
+                        ]
+                    }
+                ],
+                "payloadMimeType": [
+                    "application/fhir+json",
+                    "application/json+fhir",
+                    "application/xml+fhir",
+                    "application/fhir+xml"
+                ],
+                "address": "https://mtrestapis-live01.stanthonyhospital.org:443/v1/uscore/R4"
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Organization",
+                "id": "6ea65c28-1b50-5f6f-9924-3c498ceb230a",
+                "name": "St. Anthony Regional Hospital",
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "https://www.stanthonyhospital.org"
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "url",
+                        "value": "https://www.stanthonyhospital.org"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
+                    },
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "valueUrl": "https://myechart.stanthonyhospital.org"
+                    },
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "valueUrl": "St. Anthony My eChart"
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "311 S. Clark St"
+                        ],
+                        "city": "Carroll",
+                        "state": "IA",
+                        "postalCode": "51401"
+                    },
+                    {
+                        "line": [
+                            "PO Box 628"
+                        ],
+                        "city": "Carroll",
+                        "state": "IA",
+                        "postalCode": "51401"
+                    }
+                ],
+                "type": [
+                    {
+                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                        "code": "hospital"
+                    }
+                ]
+            }
+        }
+    ]
+}
