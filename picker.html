@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,6 +8,9 @@
 		<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 		<style>
+			a.example-link {
+				font-family: monospace;
+			}
 			img {
 				height: 2em;
 			}
@@ -16,6 +18,10 @@
 			input {
 				width: 100%;
 				box-sizing: border-box;
+			}
+
+			footer {
+				background-color: #eee;
 			}
 		</style>
 	</head>
@@ -26,7 +32,8 @@
 			const BRAND_FILE_ALIASES = {
 				meditech: './cache/connectathon-meditech.json',
 				epic: 'https://serve-basket.s3.us-east-2.amazonaws.com/Brands.json',
-				sample: 'https://raw.githubusercontent.com/argonautproject/patient-access-brands-editor/main/src/fixtures/example-brand-bundle.unitypoint.json'
+				sample:
+					'https://raw.githubusercontent.com/argonautproject/patient-access-brands-editor/main/src/fixtures/example-brand-bundle.unitypoint.json'
 			};
 
 			let selectedBrandFiles = new URLSearchParams(window.location.search)
@@ -86,6 +93,8 @@
 					return filter.split(/\s+/).every((f) => substrate.match(f.toLowerCase()));
 				});
 
+				const baseUrl = window.location.origin + window.location.pathname;
+
 				function connectTo(b) {
 					console.log('Connect to', b);
 					if (window.opener) {
@@ -120,6 +129,22 @@
 						) : (
 							'No brands found'
 						)}
+						<footer>
+									Display sample brands from...
+									<ul>
+										{Object.keys(BRAND_FILE_ALIASES).map((k) => (
+											<li>
+												<a className="example-link" href={`${baseUrl}?b=${k}`}>?b={k}</a>
+											</li>
+										))}
+									</ul>
+
+									{' '}
+									Source:{' '}
+									<a href="https://github.com/argonautproject/patient-access-brands-editor/blob/main/static/picker.html">
+										github.com/argonautproject/patient-access-brands-editor
+									</a>
+						</footer>
 					</>
 				);
 			}
