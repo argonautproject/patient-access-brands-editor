@@ -23,10 +23,10 @@
 	<body>
 		<div id="root"></div>
 		<script type="text/babel">
-			const DEFAULT_BRAND_FILES = {
+			const BRAND_FILE_ALIASES = {
+				meditech: './cache/connectathon-meditech.json',
 				epic: 'https://serve-basket.s3.us-east-2.amazonaws.com/Brands.json',
-				sample:
-					'https://raw.githubusercontent.com/argonautproject/patient-access-brands-editor/main/src/fixtures/example-brand-bundle.unitypoint.json'
+				sample: 'https://raw.githubusercontent.com/argonautproject/patient-access-brands-editor/main/src/fixtures/example-brand-bundle.unitypoint.json'
 			};
 
 			let selectedBrandFiles = new URLSearchParams(window.location.search)
@@ -34,12 +34,12 @@
 				.flatMap((v) => v.split(','));
 
 			if (selectedBrandFiles.length === 0) {
-				selectedBrandFiles = Object.keys(DEFAULT_BRAND_FILES);
+				selectedBrandFiles = ['sample'];
 			}
 
 			const brandFiles = Promise.all(
 				selectedBrandFiles
-					.map((f) => DEFAULT_BRAND_FILES[f] ?? f)
+					.map((f) => BRAND_FILE_ALIASES[f] ?? f)
 					.map((f) => fetch(f).then((r) => r.json()))
 			).then(parseBrands);
 
