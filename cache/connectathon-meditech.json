@@ -2,11 +2,13 @@
     "resourceType": "Bundle",
     "type": "collection",
     "meta": {
-        "lastUpdated": "2022-06-02T13:38:29.977Z"
+        "lastUpdated": "2022-06-02T17:08:16.245Z"
     },
-    "total": 13,
+    "timestamp": "2022-06-02T17:08:16.245Z",
+    "total": 15,
     "entry": [
         {
+            "fullUrl": "2eaaa853-f779-5832-a439-09996e31a0d4",
             "resource": {
                 "resourceType": "Endpoint",
                 "id": "2eaaa853-f779-5832-a439-09996e31a0d4",
@@ -22,8 +24,14 @@
                     "code": "hl7-fhir-rest"
                 },
                 "name": "Anderson Hospital",
+                "contact": [
+                    {
+                        "system": "url",
+                        "value": "https://fhir.meditech.com"
+                    }
+                ],
                 "managingOrganization": {
-                    "reference": "8e583756-f249-5b89-85df-84501ca8b3a1"
+                    "reference": "Organization/8e583756-f249-5b89-85df-84501ca8b3a1"
                 },
                 "period": {
                     "start": "2022-04-26T22:51:39.000Z"
@@ -48,6 +56,7 @@
             }
         },
         {
+            "fullUrl": "8e583756-f249-5b89-85df-84501ca8b3a1",
             "resource": {
                 "resourceType": "Organization",
                 "id": "8e583756-f249-5b89-85df-84501ca8b3a1",
@@ -55,13 +64,13 @@
                 "identifier": [
                     {
                         "system": "urn:ietf:rfc:3986",
-                        "value": "https://www.andersonhospital.org"
+                        "value": "https://andersonhospital.org"
                     }
                 ],
                 "telecom": [
                     {
                         "system": "url",
-                        "value": "https://www.andersonhospital.org"
+                        "value": "https://andersonhospital.org"
                     }
                 ],
                 "extension": [
@@ -75,7 +84,7 @@
                     },
                     {
                         "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
-                        "valueUrl": "Anderson Healthcare MyHealth Patient Portal"
+                        "valueString": "Anderson Healthcare MyHealth Patient Portal"
                     }
                 ],
                 "address": [
@@ -90,13 +99,18 @@
                 ],
                 "type": [
                     {
-                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
-                        "code": "hospital"
+                        "coding": [
+                            {
+                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "code": "hospital"
+                            }
+                        ]
                     }
                 ]
             }
         },
         {
+            "fullUrl": "5d533530-2857-5818-9d31-b80e6257edc4",
             "resource": {
                 "resourceType": "Endpoint",
                 "id": "5d533530-2857-5818-9d31-b80e6257edc4",
@@ -112,8 +126,14 @@
                     "code": "hl7-fhir-rest"
                 },
                 "name": "Androscoggin Valley Hospital",
+                "contact": [
+                    {
+                        "system": "url",
+                        "value": "https://fhir.meditech.com"
+                    }
+                ],
                 "managingOrganization": {
-                    "reference": "485d2fd0-5063-5dbb-acb5-01855b962521"
+                    "reference": "Organization/485d2fd0-5063-5dbb-acb5-01855b962521"
                 },
                 "period": {
                     "start": "2022-05-11T22:51:37.000Z"
@@ -138,6 +158,7 @@
             }
         },
         {
+            "fullUrl": "485d2fd0-5063-5dbb-acb5-01855b962521",
             "resource": {
                 "resourceType": "Organization",
                 "id": "485d2fd0-5063-5dbb-acb5-01855b962521",
@@ -168,7 +189,7 @@
                     },
                     {
                         "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
-                        "valueUrl": "Patient Health Portal"
+                        "valueString": "Patient Health Portal"
                     }
                 ],
                 "address": [
@@ -183,13 +204,18 @@
                 ],
                 "type": [
                     {
-                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
-                        "code": "hospital"
+                        "coding": [
+                            {
+                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "code": "hospital"
+                            }
+                        ]
                     }
                 ]
             }
         },
         {
+            "fullUrl": "545a3a7a-a07d-556f-b99e-e053f1f3a98b",
             "resource": {
                 "resourceType": "Endpoint",
                 "id": "545a3a7a-a07d-556f-b99e-e053f1f3a98b",
@@ -205,8 +231,14 @@
                     "code": "hl7-fhir-rest"
                 },
                 "name": "Appalachian Regional Healthcare",
+                "contact": [
+                    {
+                        "system": "url",
+                        "value": "https://fhir.meditech.com"
+                    }
+                ],
                 "managingOrganization": {
-                    "reference": "effe381a-c376-5d57-949d-0e57444deeef"
+                    "reference": "Organization/effe381a-c376-5d57-949d-0e57444deeef"
                 },
                 "period": {
                     "start": "2022-03-22T22:51:36.000Z"
@@ -231,6 +263,7 @@
             }
         },
         {
+            "fullUrl": "effe381a-c376-5d57-949d-0e57444deeef",
             "resource": {
                 "resourceType": "Organization",
                 "id": "effe381a-c376-5d57-949d-0e57444deeef",
@@ -259,11 +292,11 @@
                     },
                     {
                         "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
-                        "valueUrl": "https://www.arh.org/myarhchart/"
+                        "valueUrl": "https://arh.org/myarhchart/"
                     },
                     {
                         "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
-                        "valueUrl": "My ARH Chart"
+                        "valueString": "My ARH Chart"
                     }
                 ],
                 "address": [
@@ -280,30 +313,35 @@
                 ],
                 "type": [
                     {
-                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
-                        "code": "health-system"
+                        "coding": [
+                            {
+                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "code": "health-system"
+                            }
+                        ]
                     }
                 ]
             }
         },
         {
+            "fullUrl": "12ac86e9-5930-4486-b226-5588aa32adee",
             "resource": {
                 "resourceType": "Organization",
                 "id": "12ac86e9-5930-4486-b226-5588aa32adee",
                 "name": "Middlesboro ARH Hospital",
                 "partOf": {
-                    "reference": "effe381a-c376-5d57-949d-0e57444deeef"
+                    "reference": "Organization/effe381a-c376-5d57-949d-0e57444deeef"
                 },
                 "identifier": [
                     {
                         "system": "urn:ietf:rfc:3986",
-                        "value": "https://www.arh.org/portfolio_page/middlesboro-arh-hospital/"
+                        "value": "https://arh.org/portfolio_page/middlesboro-arh-hospital/"
                     }
                 ],
                 "telecom": [
                     {
                         "system": "url",
-                        "value": "https://www.arh.org/portfolio_page/middlesboro-arh-hospital/"
+                        "value": "https://arh.org/portfolio_page/middlesboro-arh-hospital/"
                     }
                 ],
                 "extension": [
@@ -324,30 +362,35 @@
                 ],
                 "type": [
                     {
-                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
-                        "code": "hospital"
+                        "coding": [
+                            {
+                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "code": "hospital"
+                            }
+                        ]
                     }
                 ]
             }
         },
         {
+            "fullUrl": "108f8b10-a647-4fef-874c-f3e0e81c6c38",
             "resource": {
                 "resourceType": "Organization",
                 "id": "108f8b10-a647-4fef-874c-f3e0e81c6c38",
                 "name": "Hazard ARH Regional Medical Center",
                 "partOf": {
-                    "reference": "effe381a-c376-5d57-949d-0e57444deeef"
+                    "reference": "Organization/effe381a-c376-5d57-949d-0e57444deeef"
                 },
                 "identifier": [
                     {
                         "system": "urn:ietf:rfc:3986",
-                        "value": "https://www.arh.org/portfolio_page/hazard-arh-regional-medical-center/"
+                        "value": "https://arh.org/portfolio_page/hazard-arh-regional-medical-center/"
                     }
                 ],
                 "telecom": [
                     {
                         "system": "url",
-                        "value": "https://www.arh.org/portfolio_page/hazard-arh-regional-medical-center/"
+                        "value": "https://arh.org/portfolio_page/hazard-arh-regional-medical-center/"
                     }
                 ],
                 "extension": [
@@ -368,30 +411,35 @@
                 ],
                 "type": [
                     {
-                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
-                        "code": "hospital"
+                        "coding": [
+                            {
+                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "code": "hospital"
+                            }
+                        ]
                     }
                 ]
             }
         },
         {
+            "fullUrl": "ad51504c-8236-4dee-a25d-6769c87ae284",
             "resource": {
                 "resourceType": "Organization",
                 "id": "ad51504c-8236-4dee-a25d-6769c87ae284",
                 "name": "ARH Community Pharmacy",
                 "partOf": {
-                    "reference": "effe381a-c376-5d57-949d-0e57444deeef"
+                    "reference": "Organization/effe381a-c376-5d57-949d-0e57444deeef"
                 },
                 "identifier": [
                     {
                         "system": "urn:ietf:rfc:3986",
-                        "value": "https://www.arh.org/portfolio_page/arh-community-pharmacy/"
+                        "value": "https://arh.org/portfolio_page/arh-community-pharmacy/"
                     }
                 ],
                 "telecom": [
                     {
                         "system": "url",
-                        "value": "https://www.arh.org/portfolio_page/arh-community-pharmacy/"
+                        "value": "https://arh.org/portfolio_page/arh-community-pharmacy/"
                     }
                 ],
                 "extension": [
@@ -412,13 +460,18 @@
                 ],
                 "type": [
                     {
-                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
-                        "code": "pharmacy"
+                        "coding": [
+                            {
+                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "code": "pharmacy"
+                            }
+                        ]
                     }
                 ]
             }
         },
         {
+            "fullUrl": "b39c1f77-5544-51e1-95e4-c447f30e2343",
             "resource": {
                 "resourceType": "Endpoint",
                 "id": "b39c1f77-5544-51e1-95e4-c447f30e2343",
@@ -434,8 +487,14 @@
                     "code": "hl7-fhir-rest"
                 },
                 "name": "Phelps Memorial Health Center",
+                "contact": [
+                    {
+                        "system": "url",
+                        "value": "https://fhir.meditech.com"
+                    }
+                ],
                 "managingOrganization": {
-                    "reference": "2abc541c-3bc9-5839-b0a1-7f7414a69196"
+                    "reference": "Organization/2abc541c-3bc9-5839-b0a1-7f7414a69196"
                 },
                 "period": {
                     "start": "2022-04-20T22:51:05.000Z"
@@ -460,6 +519,7 @@
             }
         },
         {
+            "fullUrl": "2abc541c-3bc9-5839-b0a1-7f7414a69196",
             "resource": {
                 "resourceType": "Organization",
                 "id": "2abc541c-3bc9-5839-b0a1-7f7414a69196",
@@ -467,13 +527,13 @@
                 "identifier": [
                     {
                         "system": "urn:ietf:rfc:3986",
-                        "value": "https://www.phelpsmemorial.com"
+                        "value": "https://phelpsmemorial.com"
                     }
                 ],
                 "telecom": [
                     {
                         "system": "url",
-                        "value": "https://www.phelpsmemorial.com"
+                        "value": "https://phelpsmemorial.com"
                     }
                 ],
                 "extension": [
@@ -487,7 +547,7 @@
                     },
                     {
                         "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
-                        "valueUrl": "PMHC Patient Portal"
+                        "valueString": "PMHC Patient Portal"
                     }
                 ],
                 "address": [
@@ -502,13 +562,18 @@
                 ],
                 "type": [
                     {
-                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
-                        "code": "hospital"
+                        "coding": [
+                            {
+                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "code": "hospital"
+                            }
+                        ]
                     }
                 ]
             }
         },
         {
+            "fullUrl": "6a4f25ce-9a4e-56d5-b9b9-9a3354d2d816",
             "resource": {
                 "resourceType": "Endpoint",
                 "id": "6a4f25ce-9a4e-56d5-b9b9-9a3354d2d816",
@@ -524,8 +589,14 @@
                     "code": "hl7-fhir-rest"
                 },
                 "name": "St Anthony Regional Hospital",
+                "contact": [
+                    {
+                        "system": "url",
+                        "value": "https://fhir.meditech.com"
+                    }
+                ],
                 "managingOrganization": {
-                    "reference": "6ea65c28-1b50-5f6f-9924-3c498ceb230a"
+                    "reference": "Organization/6ea65c28-1b50-5f6f-9924-3c498ceb230a"
                 },
                 "period": {
                     "start": "2022-03-22T22:51:30.000Z"
@@ -550,6 +621,7 @@
             }
         },
         {
+            "fullUrl": "6ea65c28-1b50-5f6f-9924-3c498ceb230a",
             "resource": {
                 "resourceType": "Organization",
                 "id": "6ea65c28-1b50-5f6f-9924-3c498ceb230a",
@@ -557,13 +629,13 @@
                 "identifier": [
                     {
                         "system": "urn:ietf:rfc:3986",
-                        "value": "https://www.stanthonyhospital.org"
+                        "value": "https://stanthonyhospital.org"
                     }
                 ],
                 "telecom": [
                     {
                         "system": "url",
-                        "value": "https://www.stanthonyhospital.org"
+                        "value": "https://stanthonyhospital.org"
                     }
                 ],
                 "extension": [
@@ -577,7 +649,7 @@
                     },
                     {
                         "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
-                        "valueUrl": "St. Anthony My eChart"
+                        "valueString": "St. Anthony My eChart"
                     }
                 ],
                 "address": [
@@ -600,8 +672,113 @@
                 ],
                 "type": [
                     {
-                        "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
-                        "code": "hospital"
+                        "coding": [
+                            {
+                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "code": "hospital"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "01e07738-d256-4607-b5ea-529289c50650",
+            "resource": {
+                "resourceType": "Endpoint",
+                "id": "01e07738-d256-4607-b5ea-529289c50650",
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "valueCode": "4.0.1"
+                    }
+                ],
+                "status": "active",
+                "connectionType": {
+                    "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+                    "code": "hl7-fhir-rest"
+                },
+                "name": "Austin Regional Clinic",
+                "contact": [
+                    {
+                        "system": "url",
+                        "value": "https://fhir.meditech.com"
+                    }
+                ],
+                "managingOrganization": {
+                    "reference": "Organization/26e29709-2088-4ada-990e-03560dfa640d"
+                },
+                "period": {
+                    "start": "2021-08-09T00:00:00-05:00"
+                },
+                "payloadType": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://hl7.org/fhir/us/davinci-pdex-plan-net/CodeSystem/EndpointPayloadTypeCS",
+                                "code": "NA"
+                            }
+                        ]
+                    }
+                ],
+                "payloadMimeType": [
+                    "application/fhir+json",
+                    "application/json+fhir",
+                    "application/xml+fhir",
+                    "application/fhir+xml"
+                ],
+                "address": "https://mobileprod.arcmd.com/FHIR/api/FHIR/R4/"
+            }
+        },
+        {
+            "fullUrl": "26e29709-2088-4ada-990e-03560dfa640d",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "26e29709-2088-4ada-990e-03560dfa640d",
+                "name": "Austin Regional Clinic",
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "https://mychart.austinregionalclinic.com/mychart/"
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "url",
+                        "value": "https://mychart.austinregionalclinic.com/mychart/"
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "valueString": "Austin Regional Clinic"
+                    },
+                    {
+                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "valueUrl": "https://mychart.austinregionalclinic.com/mychart/"
+                    }
+                ],
+                "address": [
+                    {
+                        "extension": [
+                            {
+                                "url": "https://open.epic.com/argonaut/patient-access-brands/nearby-zip-codes",
+                                "valueString": "73301,73344,76511,76523,76527,76530,76534,76537,76542,76548,76549,76554,76567,76571,76573,76574,76577,76578,78115,78130,78132,78133,78602,78605,78606,78608,78610,78611,78612,78613,78615,78616,78617,78619,78620,78621,78622,78623,78626,78627,78628,78630,78632,78633,78634,78636,78638,78639,78640,78641,78642,78644,78645,78646,78648,78650,78651,78652,78653,78654,78655,78656,78657,78659,78660,78661,78662,78663,78664,78665,78666,78667,78669,78670,78673,78674,78676,78680,78681,78682,78683,78691,78701,78702,78703,78704,78705,78708,78709,78710,78711,78712,78713,78714,78715,78716,78717,78718,78719,78720,78721,78722,78723,78724,78725,78726,78727,78728,78729,78730,78731,78732,78733,78734,78735,78736,78737,78738,78739,78741,78742,78744,78745,78746,78747,78748,78749,78750,78751,78752,78753,78754,78755,78756,78757,78758,78759,78760,78761,78762,78763,78764,78765,78766,78767,78768,78772,78773,78774,78778,78779,78783,78799,78942,78947,78948,78953,78957,78963"
+                            }
+                        ],
+                        "text": "Austin Regional Clinic",
+                        "state": "TX",
+                        "postalCode": "78752"
+                    }
+                ],
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "code": "clinical"
+                            }
+                        ]
                     }
                 ]
             }
