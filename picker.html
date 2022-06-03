@@ -7,6 +7,7 @@
 		<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 		<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
 		<style>
 			a.example-link {
 				font-family: monospace;
@@ -15,7 +16,7 @@
 				height: 2em;
 			}
 
-			input {
+			input.terms {
 				width: 100%;
 				box-sizing: border-box;
 			}
@@ -32,37 +33,70 @@
 			const BRAND_FILE_ALIASES = {
 				meditech: './cache/connectathon-meditech.json',
 				epic: 'https://serve-basket.s3.us-east-2.amazonaws.com/Brands.json',
-				sample:
-					'https://raw.githubusercontent.com/argonautproject/patient-access-brands-editor/main/src/fixtures/example-brand-bundle.unitypoint.json'
+				sample: 'https://raw.githubusercontent.com/argonautproject/patient-access-brands-editor/main/src/fixtures/example-brand-bundle.unitypoint.json'
 			};
 
-			let selectedBrandFiles = new URLSearchParams(window.location.search)
-				.getAll('b')
-				.flatMap((v) => v.split(','));
+			let selectedBrandFiles = new URLSearchParams(window.location.search).getAll('b').flatMap((v) => v.split(','));
 
 			if (selectedBrandFiles.length === 0) {
 				selectedBrandFiles = ['sample'];
 			}
 
-			const brandFiles = Promise.all(
-				selectedBrandFiles
-					.map((f) => BRAND_FILE_ALIASES[f] ?? f)
-					.map((f) => fetch(f).then((r) => r.json()))
-			).then(parseBrands);
+			const brandFiles = Promise.all(selectedBrandFiles.map((f) => BRAND_FILE_ALIASES[f] ?? f).map((f) => fetch(f).then((r) => r.json()))).then(parseBrands);
+
+			const zipsPromise = fetch('./cache/zipcodes.us.json')
+				.then((r) => r.json())
+				.then((zips) => ({
+					byZipcode: Object.fromEntries(zips.map((z) => [z.zipcode, z])),
+					byCity: zips
+						.map((z) => [`${z.place.toLowerCase()}.${z.state_code.toLowerCase()}`, z])
+						.reduce((acc, [k, v]) => {
+							acc[k] = acc[k] || [];
+							acc[k].push(v);
+							return acc;
+						}, {})
+				}));
+
+			function locationToPoint(l) {
+				return l.longitude && l.latitude ? turf.point([parseFloat(l.longitude), parseFloat(l.latitude)]) : null;
+			}
+
+			function withinMilesOfLocation(maxDistance, zipLocation, orgs) {
+				const ret = orgs
+					.map((org) => {
+						if (!org.geo) {
+							return { org, distance: Infinity };
+						}
+						const closest = turf.nearestPoint(zipLocation, org.geo);
+						const distance = turf.distance(zipLocation, closest, { units: 'miles' });
+						return { org, distance };
+					})
+					.filter((o) => o.distance < maxDistance);
+
+				ret.sort((a, b) => a.distance - b.distance);
+				return ret.map((o) => o.org);
+			}
 
 			async function parseBrands(brandFiles) {
+				const zips = await zipsPromise;
+
+				function extractGeo(org) {
+					const points = (org.address || [])
+						.flatMap((a) => (a.postalCode ? [zips.byZipcode[a.postalCode] || []] : zips.byCity[`${a.city.toLowerCase()}.${a.state.toLowerCase()}`] || []))
+						.map(locationToPoint)
+						.filter((p) => !!p);
+					return points.length ? turf.featureCollection(points) : null;
+				}
+
 				const orgs = brandFiles.flatMap((bf) =>
 					bf.entry
 						.filter((e) => e.resource.resourceType === 'Organization')
 						.map((o) => ({
+							geo: extractGeo(o.resource),
 							organization: o.resource,
 							parent: o.resource?.partOf
 								? bf.entry
-										.filter(
-											(e) =>
-												e.resource.resourceType === 'Organization' &&
-												e.resource.id === o.resource.partOf.reference.split('/').at(-1)
-										)
+										.filter((e) => e.resource.resourceType === 'Organization' && e.resource.id === o.resource.partOf.reference.split('/').at(-1))
 										.map((e) => e.resource)
 										.at(0)
 								: null,
@@ -70,9 +104,7 @@
 								.filter(
 									(e) =>
 										e.resource.resourceType === 'Endpoint' &&
-										[`Organization/${o.resource.id}`, `${o.resource?.partOf?.reference}`].includes(
-											e.resource.managingOrganization.reference
-										)
+										[`Organization/${o.resource.id}`, `${o.resource?.partOf?.reference}`].includes(e.resource.managingOrganization.reference)
 								)
 								.map((e) => e.resource)
 						}))
@@ -81,17 +113,25 @@
 				return orgs;
 			}
 
-			function App() {
+			function App({ zips }) {
 				let [brands, setBrands] = React.useState([]);
 				let [filter, setFilter] = React.useState('');
+				let [nearZip, setNearZip] = React.useState('');
+				let [withinMiles, setWithinMiles] = React.useState(10);
+
 				React.useEffect(() => {
 					brandFiles.then(setBrands);
 				});
 
-				const filteredBrands = brands.filter((b) => {
+				let filteredBrands = brands.filter((b) => {
 					const substrate = JSON.stringify(b.organization).toLowerCase();
 					return filter.split(/\s+/).every((f) => substrate.match(f.toLowerCase()));
 				});
+
+				if (nearZip && zips.byZipcode[nearZip]) {
+					const zipLocation = locationToPoint(zips.byZipcode[nearZip]);
+					filteredBrands = withinMilesOfLocation(withinMiles, zipLocation, filteredBrands);
+				}
 
 				const baseUrl = window.location.origin + window.location.pathname;
 
@@ -110,19 +150,21 @@
 				return (
 					<>
 						<h1>Connect Your Health Data</h1>
-						<input type="text" value={filter} onChange={(e) => setFilter(e.target.value)} />
+						Search terms: <input type="text" className="terms" value={filter} onChange={(e) => setFilter(e.target.value)} />
+						<br />
+						Within{' '}
+						<select value={withinMiles} onChange={(e) => setWithinMiles(parseInt(e.target.value))}>
+							<option value="10">10 miles</option>
+							<option value="100">100 miles</option>
+						</select>{' '}
+						of zip <input type="text" value={nearZip} onChange={(e) => setNearZip(e.target.value)} />
 						{filteredBrands.length ? (
 							<ol>
-								{filteredBrands.map((b) => (
-									<li key={b.organization?.identifier?.[0].value || b.organization.id}>
-										<button onClick={(e) => connectTo(b)}>Connect to {b.organization.name}</button>{' '}
-										{b.parent ? <span>part of {b.parent.name}</span> : null} (Endpoints:{' '}
+								{filteredBrands.map((b, i) => (
+									<li key={i}>
+										<button onClick={(e) => connectTo(b)}>Connect to {b.organization.name}</button> {b.parent ? <span>part of {b.parent.name}</span> : null} (Endpoints:{' '}
 										{b.endpoints.length}) <br />
-										<img
-											src={b.organization.extension
-												.filter((e) => e.url.match('brand-logo'))
-												.map((e) => e.valueUrl)}
-										/>
+										<img src={b.organization.extension.filter((e) => e.url.match('brand-logo')).map((e) => e.valueUrl)} />
 									</li>
 								))}
 							</ol>
@@ -130,20 +172,18 @@
 							'No brands found'
 						)}
 						<footer>
-									Display sample brands from...
-									<ul>
-										{Object.keys(BRAND_FILE_ALIASES).map((k) => (
-											<li>
-												<a className="example-link" href={`${baseUrl}?b=${k}`}>?b={k}</a>
-											</li>
-										))}
-									</ul>
-
-									{' '}
-									Source:{' '}
-									<a href="https://github.com/argonautproject/patient-access-brands-editor/blob/main/static/picker.html">
-										github.com/argonautproject/patient-access-brands-editor
-									</a>
+							Display sample brands from...
+							<ul>
+								{Object.keys(BRAND_FILE_ALIASES).map((k) => (
+									<li>
+										<a className="example-link" href={`${baseUrl}?b=${k}`}>
+											?b={k}
+										</a>
+									</li>
+								))}
+							</ul>{' '}
+							Source:{' '}
+							<a href="https://github.com/argonautproject/patient-access-brands-editor/blob/main/static/picker.html">github.com/argonautproject/patient-access-brands-editor</a>
 						</footer>
 					</>
 				);
@@ -151,7 +191,9 @@
 
 			const container = document.getElementById('root');
 			const root = ReactDOM.createRoot(container);
-			root.render(<App />);
+			zipsPromise.then((z) => {
+				root.render(<App zips={z} />);
+			});
 		</script>
 	</body>
 </html>
