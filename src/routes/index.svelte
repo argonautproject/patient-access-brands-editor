@@ -17,8 +17,13 @@
 
   onMount(async () => {
     const params = new URLSearchParams(window.location.search);
+    const base = params.get("base");
     const source = params.get("source");
     const rootBrand = params.get("root");
+
+    if (base) {
+      baseUrl = base;
+    }
     if (source) {
       let sourceBundle = await fetch(source).then((r) => r.json());
       let sourceBrands = FHIRToBrands(sourceBundle, rootBrand);
