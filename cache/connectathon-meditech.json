@@ -14,7 +14,7 @@
                 "id": "2eaaa853-f779-5832-a439-09996e31a0d4",
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/endpoint-fhir-version",
                         "valueCode": "4.0.1"
                     }
                 ],
@@ -75,15 +75,15 @@
                 ],
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo",
                         "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
                     },
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-url",
                         "valueUrl": "https://myhealth.andersonhealthcare.org/"
                     },
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-name",
                         "valueString": "Anderson Healthcare MyHealth Patient Portal"
                     }
                 ],
@@ -101,7 +101,7 @@
                     {
                         "coding": [
                             {
-                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "system": "http://hl7.org/fhir/smart-app-launch/CodeSystem/patient-access-category",
                                 "code": "hospital"
                             }
                         ]
@@ -116,7 +116,7 @@
                 "id": "5d533530-2857-5818-9d31-b80e6257edc4",
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/endpoint-fhir-version",
                         "valueCode": "4.0.1"
                     }
                 ],
@@ -180,15 +180,15 @@
                 ],
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo",
                         "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
                     },
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-url",
                         "valueUrl": "https://myavh.avhnh.org/"
                     },
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-name",
                         "valueString": "Patient Health Portal"
                     }
                 ],
@@ -206,7 +206,7 @@
                     {
                         "coding": [
                             {
-                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "system": "http://hl7.org/fhir/smart-app-launch/CodeSystem/patient-access-category",
                                 "code": "hospital"
                             }
                         ]
@@ -221,7 +221,7 @@
                 "id": "545a3a7a-a07d-556f-b99e-e053f1f3a98b",
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/endpoint-fhir-version",
                         "valueCode": "4.0.1"
                     }
                 ],
@@ -287,15 +287,15 @@
                 ],
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo",
                         "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
                     },
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-url",
                         "valueUrl": "https://arh.org/myarhchart/"
                     },
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-name",
                         "valueString": "My ARH Chart"
                     }
                 ],
@@ -315,7 +315,7 @@
                     {
                         "coding": [
                             {
-                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "system": "http://hl7.org/fhir/smart-app-launch/CodeSystem/patient-access-category",
                                 "code": "health-system"
                             }
                         ]
@@ -346,7 +346,7 @@
                 ],
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo",
                         "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
                     }
                 ],
@@ -364,7 +364,7 @@
                     {
                         "coding": [
                             {
-                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "system": "http://hl7.org/fhir/smart-app-launch/CodeSystem/patient-access-category",
                                 "code": "hospital"
                             }
                         ]
@@ -395,7 +395,7 @@
                 ],
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo",
                         "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
                     }
                 ],
@@ -413,7 +413,7 @@
                     {
                         "coding": [
                             {
-                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "system": "http://hl7.org/fhir/smart-app-launch/CodeSystem/patient-access-category",
                                 "code": "hospital"
                             }
                         ]
@@ -444,7 +444,7 @@
                 ],
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo",
                         "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
                     }
                 ],
@@ -462,7 +462,7 @@
                     {
                         "coding": [
                             {
-                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "system": "http://hl7.org/fhir/smart-app-launch/CodeSystem/patient-access-category",
                                 "code": "pharmacy"
                             }
                         ]
@@ -477,7 +477,7 @@
                 "id": "b39c1f77-5544-51e1-95e4-c447f30e2343",
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/endpoint-fhir-version",
                         "valueCode": "4.0.1"
                     }
                 ],
@@ -538,15 +538,15 @@
                 ],
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo",
                         "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
                     },
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-url",
                         "valueUrl": "https://ehr.phelpsmemorial.com"
                     },
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-name",
                         "valueString": "PMHC Patient Portal"
                     }
                 ],
@@ -564,7 +564,7 @@
                     {
                         "coding": [
                             {
-                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "system": "http://hl7.org/fhir/smart-app-launch/CodeSystem/patient-access-category",
                                 "code": "hospital"
                             }
                         ]
@@ -579,7 +579,7 @@
                 "id": "6a4f25ce-9a4e-56d5-b9b9-9a3354d2d816",
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/endpoint-fhir-version",
                         "valueCode": "4.0.1"
                     }
                 ],
@@ -640,15 +640,15 @@
                 ],
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo",
                         "valueUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNiAxNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTYgMTY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoJLnN0MHtmaWxsOiMzNEI2NzM7fQ0KCS5zdDF7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8cmVjdCBjbGFzcz0ic3QwIiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiLz4NCjxnIGlkPSJNRURJVEVDSF8xXyI+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMS45LDUuNCA4LjIsMTAuNCA3LjcsMTAuNCA0LjEsNS40IDQuMSwxMy43IDIsMTMuNyAyLDIuMyA0LjUsMi4zIDgsNy4yIDExLjYsMi4zIDE0LDIuMyAxNCwxMy43IA0KCQkxMS45LDEzLjcgCSIvPg0KPC9nPg0KPC9zdmc+DQo="
                     },
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-url",
                         "valueUrl": "https://myechart.stanthonyhospital.org"
                     },
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-name",
                         "valueString": "St. Anthony My eChart"
                     }
                 ],
@@ -674,7 +674,7 @@
                     {
                         "coding": [
                             {
-                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "system": "http://hl7.org/fhir/smart-app-launch/CodeSystem/patient-access-category",
                                 "code": "hospital"
                             }
                         ]
@@ -689,7 +689,7 @@
                 "id": "01e07738-d256-4607-b5ea-529289c50650",
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/endpoint-fhir-version",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/endpoint-fhir-version",
                         "valueCode": "4.0.1"
                     }
                 ],
@@ -750,11 +750,11 @@
                 ],
                 "extension": [
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-name",
                         "valueString": "Austin Regional Clinic"
                     },
                     {
-                        "url": "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                        "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-url",
                         "valueUrl": "https://mychart.austinregionalclinic.com/mychart/"
                     }
                 ],
@@ -775,7 +775,7 @@
                     {
                         "coding": [
                             {
-                                "system": "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+                                "system": "http://hl7.org/fhir/smart-app-launch/CodeSystem/patient-access-category",
                                 "code": "clinical"
                             }
                         ]
