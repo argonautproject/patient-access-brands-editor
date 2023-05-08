@@ -104,28 +104,28 @@ function organizationToBrand(org: Organization): Brand {
   };
 
   const logo = org.extension.filter(
-    (e) => e.url === "http://fhir.org/argonaut/StructureDefinition/brand-logo"
+    (e) => e.url === "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo"
   );
   if (logo.length > 0) {
     brand.logo = logo[0].valueUrl;
   }
 
   const portalName = org.extension.filter(
-    (e) => e.url === "http://fhir.org/argonaut/StructureDefinition/patient-access-name"
+    (e) => e.url === "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-name"
   );
   if (portalName.length > 0) {
     brand.portal.name = portalName[0].valueString;
   }
 
   const portalDescription = org.extension.filter(
-    (e) => e.url === "http://fhir.org/argonaut/StructureDefinition/patient-access-description"
+    (e) => e.url === "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-description"
   );
   if (portalDescription.length > 0) {
     brand.portal.description = portalDescription[0].valueString;
   }
 
   const portalUrl = org.extension.filter(
-    (e) => e.url === "http://fhir.org/argonaut/StructureDefinition/patient-access-url"
+    (e) => e.url === "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-url"
   );
   if (portalUrl.length > 0) {
     brand.portal.website = portalUrl[0].valueUrl;
@@ -206,7 +206,7 @@ export function brandToFhir(
         ...(brand?.logo
           ? [
               {
-                url: "http://fhir.org/argonaut/StructureDefinition/brand-logo",
+                url: "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo",
                 valueUrl: brand.logo,
               },
             ]
@@ -214,7 +214,7 @@ export function brandToFhir(
         ...(!brand?.portalInherit?.website && brand?.portal?.website
           ? [
               {
-                url: "http://fhir.org/argonaut/StructureDefinition/patient-access-url",
+                url: "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-url",
                 valueUrl: brand.portal.website,
               },
             ]
@@ -222,7 +222,7 @@ export function brandToFhir(
         ...(!brand?.portalInherit?.name && brand.portal?.name
           ? [
               {
-                url: "http://fhir.org/argonaut/StructureDefinition/patient-access-name",
+                url: "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-name",
                 valueString: brand.portal.name,
               },
             ]
@@ -230,7 +230,7 @@ export function brandToFhir(
         ...(!brand.portalInherit?.description && brand.portal?.description
           ? [
               {
-                url: "http://fhir.org/argonaut/StructureDefinition/patient-access-description",
+                url: "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-description",
                 valueString: brand.portal.description,
               },
             ]
@@ -268,7 +268,7 @@ export function brandToFhir(
       type: (brand?.categories || []).map((code) => ({
         coding: [
           {
-            system: "http://fhir.org/argonaut/CodeSystem/patient-access-category",
+            system: "http://hl7.org/fhir/smart-app-launch/CodeSystem/patient-access-category",
             code,
           },
         ],
