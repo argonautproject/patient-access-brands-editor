@@ -58,7 +58,7 @@
         "extension": [
           {
             "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo",
-            "valueUrl": "https://www.unitypoint.org/apple-touch-icon-144x144-precomposed.png"
+            "valueUrl": "https://www.unitypoint.org/assets/favicon/safari-pinned-tab.svg"
           },
           {
             "url": "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-url",

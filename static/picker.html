@@ -32,8 +32,8 @@
 		<script type="text/babel">
 			const BRAND_FILE_ALIASES = {
 				meditech: './cache/connectathon-meditech.json',
-				epic: 'https://serve-basket.s3.us-east-2.amazonaws.com/Brands.json',
-				sample: 'https://raw.githubusercontent.com/argonautproject/patient-access-brands-editor/main/src/fixtures/example-brand-bundle.unitypoint.json'
+				epic: 'https://serve-basket.s3.us-east-2.amazonaws.com/SMART-Brands.json',
+				sample: './cache/connectathon-sample.json'
 			};
 
 			let selectedBrandFiles = new URLSearchParams(window.location.search).getAll('b').flatMap((v) => v.split(','));
@@ -96,7 +96,7 @@
 							organization: o.resource,
 							parent: o.resource?.partOf
 								? bf.entry
-										.filter((e) => e.resource.resourceType === 'Organization' && e.resource.id === o.resource.partOf.reference.split('/').at(-1))
+										.filter((e) =>e.fullUrl === o.resource.partOf.reference || e.resource.resourceType === 'Organization' && e.resource.id === o.resource.partOf.reference.split('/').at(-1))
 										.map((e) => e.resource)
 										.at(0)
 								: null,
@@ -123,7 +123,9 @@
 					brandFiles.then(setBrands);
 				});
 
-				let filteredBrands = brands.filter((b) => {
+				let filteredBrands = brands
+				.filter(b => !b?.organization?.extension?.some(e => e.url.match('brand-flags') && e.valueCode === 'hidden'))
+				.filter((b) => {
 					const substrate = JSON.stringify(b.organization).toLowerCase();
 					return filter.split(/\s+/).every((f) => substrate.match(f.toLowerCase()));
 				});
@@ -175,7 +177,7 @@
 							Display sample brands from...
 							<ul>
 								{Object.keys(BRAND_FILE_ALIASES).map((k) => (
-									<li>
+									<li key={k}>
 										<a className="example-link" href={`${baseUrl}?b=${k}`}>
 											?b={k}
 										</a>
