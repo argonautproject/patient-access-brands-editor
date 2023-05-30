@@ -96,7 +96,10 @@
 							organization: o.resource,
 							parent: o.resource?.partOf
 								? bf.entry
-										.filter((e) =>e.fullUrl === o.resource.partOf.reference || e.resource.resourceType === 'Organization' && e.resource.id === o.resource.partOf.reference.split('/').at(-1))
+										.filter(
+											(e) =>
+												e.fullUrl === o.resource.partOf.reference || (e.resource.resourceType === 'Organization' && e.resource.id === o.resource.partOf.reference.split('/').at(-1))
+										)
 										.map((e) => e.resource)
 										.at(0)
 								: null,
@@ -104,7 +107,9 @@
 								.filter(
 									(e) =>
 										e.resource.resourceType === 'Endpoint' &&
-										[`Organization/${o.resource.id}`, `${o.resource?.partOf?.reference}`].includes(e.resource.managingOrganization.reference)
+										(e.resource.managingOrganization.reference === o.fullUrl ||
+											e.resource.managingOrganization.reference === o.resource?.partOf?.reference ||
+											e.resource.managingOrganization.reference === `Organization/${o.resource?.id}`)
 								)
 								.map((e) => e.resource)
 						}))
@@ -124,11 +129,11 @@
 				});
 
 				let filteredBrands = brands
-				.filter(b => !b?.organization?.extension?.some(e => e.url.match('brand-flags') && e.valueCode === 'hidden'))
-				.filter((b) => {
-					const substrate = JSON.stringify(b.organization).toLowerCase();
-					return filter.split(/\s+/).every((f) => substrate.match(f.toLowerCase()));
-				});
+					.filter((b) => !b?.organization?.extension?.some((e) => e.url.match('brand-flags') && e.valueCode === 'hidden'))
+					.filter((b) => {
+						const substrate = JSON.stringify(b.organization).toLowerCase();
+						return filter.split(/\s+/).every((f) => substrate.match(f.toLowerCase()));
+					});
 
 				if (nearZip && zips.byZipcode[nearZip]) {
 					const zipLocation = locationToPoint(zips.byZipcode[nearZip]);
