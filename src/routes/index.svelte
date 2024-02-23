@@ -42,7 +42,7 @@
   function preview(){
 
     const cfg = window.open(
-      env.dev ?  "http://localhost:5173/config" : "https://brand-browesr.argo.run/config");
+      env.dev ?  "http://localhost:5173/config" : "https://brand-browser.argo.run/config");
     const submit =  (event) => {
       console.log("submitting", event.data);
       cfg.postMessage(JSON.parse(fhirExport), "*")
