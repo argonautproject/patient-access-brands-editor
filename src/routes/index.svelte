@@ -3,12 +3,14 @@
   import BrandEditor from "$lib/BrandEditor.svelte";
   import debounce from "$lib/debounce";
   import { brandsToFHIR, FHIRToBrands } from "$lib/interop";
-  import { Column, CopyButton, Grid, Row } from "carbon-components-svelte";
+  import { Column, CopyButton, Grid, Row, Button } from "carbon-components-svelte";
   import "carbon-components-svelte/css/white.css";
   import { onMount } from "svelte";
   import * as uuid from "uuid";
   import type { Brand } from "../lib/types";
   import { editing } from "../stores/stores";
+  import * as env from  "$app/env"
+
 
   let defaultBrand: Brand = { id: uuid.v4(), name: "TODO: Add a name" };
   let cards: Record<string, Brand> = {};
@@ -36,6 +38,19 @@
     }
     editTopBrand();
   });
+
+  function preview(){
+
+    const cfg = window.open(
+      env.dev ?  "http://localhost:5173/config" : "https://brand-browesr.argo.run/config");
+    const submit =  (event) => {
+      console.log("submitting", event.data);
+      cfg.postMessage(JSON.parse(fhirExport), "*")
+      cfg.postMessage("done", "*")
+      window.removeEventListener("message", submit)
+    }
+    window.addEventListener("message",submit);
+  }
 
   function editTopBrand() {
     let cardContents = Object.values(cards);
@@ -70,7 +85,7 @@
     return (_e) => {
       cards = Object.fromEntries(
         Object.entries(cards).filter(([k, v]) => k !== id)
-      );
+      )
     };
   }
 </script>
@@ -110,11 +125,17 @@
     </Column>
     <Column style="position: relative;" lg={4} sm={4}>
       <pre style="overflow-x: clip; margin-bottom: 1em;">{fhirExport}</pre>
-      <CopyButton
+      <span
         style="position: absolute; top: 0px; right: 1rem;"
+      >
+      <CopyButton
         text={fhirExport}
         feedback="Copied Brand Bundle to clipboard"
       />
+      <Button style="width: .5rem;" on:click={preview} >Preview</Button>
+
+      </span>
+
     </Column>
   </Row>
 </Grid>
