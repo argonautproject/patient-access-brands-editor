@@ -115,12 +115,12 @@ function organizationToBrand(org: Organization): Brand {
   }
 
   const portal = org.extension
-     .filter(
+     .find(
       (e) =>
         e.url === "http://hl7.org/fhir/StructureDefinition/organization-portal"
-    ).at(0);
+    )?.extension || []
   
-  const portalName = portal?.extension.filter(
+  const portalName = portal.filter(
       e => e.url === "portalName"
   );
 
@@ -236,21 +236,26 @@ export function brandToFhir(
               {
                 url: "http://hl7.org/fhir/StructureDefinition/organization-portal",
                 extension: [
-                  {
+                  ...(brand?.portal?.website || parent?.portal?.website ? 
+                    [{
                     url: "portalUrl",
-                    valueUrl:
-                      brand?.portal?.website || parent?.portal?.website,
-                  },
-                  {
+                    valueUrl: brand?.portal?.website || parent?.portal?.website
+                  }] : []),
+                  ...(
+                  brand?.portal?.description || parent?.portal?.description ? 
+                    [{
                     url: "portalDescription",
                     valueMarkdown:
-                      brand?.portal?.description ||
-                      parent?.portal?.description
-                  },
-                  {
+                      brand?.portal?.description || parent?.portal?.description
+                  }] : []),
+                  ...(
+                  brand?.portal?.name || parent?.portal?.name ? 
+                    [{
                     url: "portalName",
-                    valueString: brand?.portal?.name || parent?.portal?.name,
-                  },
+                    valueString:
+                      brand?.portal?.name || parent?.portal?.name
+                  }] : []),
+
                 ],
               },
             ]
