@@ -231,7 +231,7 @@ export function brandToFhir(
               },
             ]
           : []),
-        ...(brand?.portalInherit.website || brand?.portal.website
+        ...(brand?.portalInherit.website || brand?.portal.website || brand?.portalInherit.name || brand?.portal.name || brand?.portalInherit.description || brand?.portal.description
           ? [
               {
                 url: "http://hl7.org/fhir/StructureDefinition/organization-portal",
