@@ -182,14 +182,13 @@
         bind:selectedIds={brand.categories}
         label="Select categories"
         items={[
-          { id: "outpatient", text: "Outpatient (clinic, office)" },
-          { id: "hospital", text: "Hospital" },
-          { id: "health-system", text: "Health system" },
-          { id: "lab", text: "Lab" },
+          { id: "prov", text: "Healthcare Provider" },
+          { id: "ins", text: "Insurance Company" },
+          { id: "laboratory", text: "Laboratory" },
           { id: "pharmacy", text: "Pharmacy" },
-          { id: "insurer", text: "Insurer" },
-          { id: "network", text: "Data Network" },
-          { id: "aggregator", text: "Data Aggregator" },
+          { id: "imaging", text: "Imaging Center" },
+          { id: "health-information-network", text: "Health Information Network" },
+          { id: "health-data-aggregator", text: "Health Data Aggregator" },
         ]}
       />
     </FormGroup>

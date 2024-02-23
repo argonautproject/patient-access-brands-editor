@@ -4,9 +4,7 @@ import type { Brand } from "./types";
 export interface BrandBundle {
   resourceType: "Bundle";
   type: "collection";
-  meta: {
-    lastUpdated: string;
-  };
+  timestamp: string;
   entry: {
     fullUrl: string;
     resource: {
@@ -44,9 +42,11 @@ interface Organization {
   extension: {
     url: string;
     valueString?: string;
+    valueMarkdown?: string;
     valueIdentifier?: Identifier;
     valueCoding?: Coding;
     valueUrl: string;
+    extension: Organization["extension"];
   }[];
   identifier?: Identifier[];
   name: string;
@@ -103,29 +103,42 @@ function organizationToBrand(org: Organization): Brand {
     },
   };
 
-  const logo = org.extension.filter(
-    (e) => e.url === "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo"
-  );
+  const logo = org.extension
+    .filter(
+      (e) =>
+        e.url === "http://hl7.org/fhir/StructureDefinition/organization-brand"
+    )
+    .flatMap((e) => e.extension.filter((e2) => e2.url === "brandLogo"));
+
   if (logo.length > 0) {
     brand.logo = logo[0].valueUrl;
   }
 
-  const portalName = org.extension.filter(
-    (e) => e.url === "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-name"
+  const portal = org.extension
+     .filter(
+      (e) =>
+        e.url === "http://hl7.org/fhir/StructureDefinition/organization-portal"
+    ).at(0);
+  
+  const portalName = portal?.extension.filter(
+      e => e.url === "portalName"
   );
+
   if (portalName.length > 0) {
     brand.portal.name = portalName[0].valueString;
   }
 
-  const portalDescription = org.extension.filter(
-    (e) => e.url === "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-description"
+  const portalDescription = portal.filter(
+    (e) =>
+      e.url ===
+      "portalDescription"
   );
   if (portalDescription.length > 0) {
-    brand.portal.description = portalDescription[0].valueString;
+    brand.portal.description = portalDescription[0].valueMarkdown;
   }
 
-  const portalUrl = org.extension.filter(
-    (e) => e.url === "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-url"
+  const portalUrl = portal.filter(
+    (e) => e.url === "portalUrl"
   );
   if (portalUrl.length > 0) {
     brand.portal.website = portalUrl[0].valueUrl;
@@ -193,10 +206,12 @@ export function FHIRToBrands(
 }
 
 export function brandToFhir(
-  brand: Brand,
+  brands: Record<string,Brand>,
+  id: string,
   baseUrl: string
 ): BrandBundle["entry"][number] {
-  const id = brand.id;
+  const brand = brands[id]
+  const parent = brands[brand.parentId]
   const ret = {
     fullUrl: `${baseUrl}/Organization/${id}`,
     resource: {
@@ -206,32 +221,37 @@ export function brandToFhir(
         ...(brand?.logo
           ? [
               {
-                url: "http://hl7.org/fhir/smart-app-launch/StructureDefinition/brand-logo",
-                valueUrl: brand.logo,
+                url: "http://hl7.org/fhir/StructureDefinition/organization-brand",
+                extension: [
+                  {
+                    url: "brandLogo",
+                    valueUrl: brand.logo,
+                  },
+                ],
               },
             ]
           : []),
-        ...(!brand?.portalInherit?.website && brand?.portal?.website
+        ...(brand?.portalInherit.website || brand?.portal.website
           ? [
               {
-                url: "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-url",
-                valueUrl: brand.portal.website,
-              },
-            ]
-          : []),
-        ...(!brand?.portalInherit?.name && brand.portal?.name
-          ? [
-              {
-                url: "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-name",
-                valueString: brand.portal.name,
-              },
-            ]
-          : []),
-        ...(!brand.portalInherit?.description && brand.portal?.description
-          ? [
-              {
-                url: "http://hl7.org/fhir/smart-app-launch/StructureDefinition/patient-access-description",
-                valueString: brand.portal.description,
+                url: "http://hl7.org/fhir/StructureDefinition/organization-portal",
+                extension: [
+                  {
+                    url: "portalUrl",
+                    valueUrl:
+                      brand?.portal?.website || parent?.portal?.website,
+                  },
+                  {
+                    url: "portalDescription",
+                    valueMarkdown:
+                      brand?.portal?.description ||
+                      parent?.portal?.description
+                  },
+                  {
+                    url: "portalName",
+                    valueString: brand?.portal?.name || parent?.portal?.name,
+                  },
+                ],
               },
             ]
           : []),
@@ -268,7 +288,7 @@ export function brandToFhir(
       type: (brand?.categories || []).map((code) => ({
         coding: [
           {
-            system: "http://hl7.org/fhir/smart-app-launch/CodeSystem/patient-access-category",
+            system: "http://terminology.hl7.org/CodeSystem/organization-type",
             code,
           },
         ],
@@ -276,13 +296,11 @@ export function brandToFhir(
     },
   };
 
-
-  ["alias", "address", "extension", "identifier", "type"].forEach(p => {
-  if (ret?.resource?.[p]?.length === 0) {
-    delete ret.resource[p]
-  }
- 
-  })
+  ["alias", "address", "extension", "identifier", "type"].forEach((p) => {
+    if (ret?.resource?.[p]?.length === 0) {
+      delete ret.resource[p];
+    }
+  });
 
   return ret;
 }
@@ -294,11 +312,9 @@ export function brandsToFHIR(
   return {
     resourceType: "Bundle",
     type: "collection",
-    meta: {
-      lastUpdated: new Date().toISOString(),
-    },
+    timestamp: new Date().toISOString(),
     entry: Object.entries(brands).map(([id, brand]) =>
-      brandToFhir(brand, baseUrl)
+      brandToFhir(brands, id, baseUrl)
     ),
   };
 }
